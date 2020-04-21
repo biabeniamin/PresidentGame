@@ -1,4 +1,4 @@
-:root {
+::ng-deep :root {
     --turn-indicator-green: #50C878; /* was rgba(0, 255, 0)*/
     --turn-indicator-yellow: #e4cb79; /* was rgb(255, 187, 0) */
 
@@ -32,6 +32,7 @@ html {
 }
 
 body {
+    --table-background:  #C99C61;
     background-color: var(--table-background);
     color: var(--ui-color-1);
     position: fixed;
