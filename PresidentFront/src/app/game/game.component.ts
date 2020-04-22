@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Inject, ViewChild, ElementRef } from '@angular/core';
+import { DOCUMENT } from '@angular/common';
 
 @Component({
   selector: 'app-game',
@@ -7,9 +8,30 @@ import { Component, OnInit } from '@angular/core';
 })
 export class GameComponent implements OnInit {
 
-  constructor() { }
+  @ViewChild('popUpWindowContainer2', { static: false }) myDiv: any;
+  public displayPopUp : boolean = false;
+  public style1 =true;
+  public style2 =true;
+
+  constructor(@Inject(DOCUMENT) document)  {
+      let popUp = document.getElementById('pop-up-window-container');
+      console.log(popUp);
+      console.log(this.myDiv);
+   }
 
   ngOnInit() {
   }
+  
+  addLocation(event)
+	{
+    event.preventDefault();
+		const target = event.target;
+    console.log(this.myDiv);
+    console.log(this.myDiv.nativeElement.style);
+    //this.myDiv.nativeElement.style["display"] = "none"
+    console.log(this.myDiv.nativeElement.style);
+
+    this.displayPopUp = false;
+	}
 
 }
