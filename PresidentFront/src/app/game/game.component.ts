@@ -19,10 +19,14 @@ export class GameComponent implements OnInit {
       console.log(this.myDiv);
       cardService.cards.subscribe(data => {
         console.log(data);
-        this.playerCards = cardService.cards.getValue().splice(5,3);
+        this.playerCards = cardService.cards.getValue().splice(5,9);
+
+        let range = 136;
+        range=Math.min(range, this.playerCards.length * 28)
+
         for(let i = 0; i<this.playerCards.length; i++)
         {
-          this.playerCards[i].rotation=-68 + 136/(this.playerCards.length - 1) * i;
+          this.playerCards[i].rotation=-range/2 + range/(this.playerCards.length - 1) * i;
         }
         console.log(this.playerCards);
       })
