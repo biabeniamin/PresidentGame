@@ -10,8 +10,7 @@ export class GameComponent implements OnInit {
 
   @ViewChild('popUpWindowContainer2', { static: false }) myDiv: any;
   public displayPopUp : boolean = false;
-  public style1 =true;
-  public style2 =true;
+  public turnRotation : number = 3;
 
   constructor(@Inject(DOCUMENT) document)  {
       let popUp = document.getElementById('pop-up-window-container');
@@ -32,6 +31,7 @@ export class GameComponent implements OnInit {
     console.log(this.myDiv.nativeElement.style);
 
     this.displayPopUp = false;
+    this.turnRotation++;
 	}
 
 }

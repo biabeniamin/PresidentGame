@@ -56,13 +56,18 @@
                         </div>
                     </div>
                 </div>
-                <div class="namefield"></div>
+                <div class="namefield">Denis</div>
                 <div class="stiche"></div>
             </div>
             <div id="table">
                 <div id="jassmatwrap">
                     <div id="jassmatborder">
                         <div id="jassmat">
+                            <form (submit)="addLocation($event)">
+                                <div class="button-container">
+                                    <input type="submit" value="Get by LocationId">
+                                </div>
+                            </form>
                             <div id="matcardwrap">
                                 <div class="card unselectable roesle neun player3" style="">
                                     <div class="cardimg"></div>
@@ -77,7 +82,7 @@
                                     <div class="cardimg"></div>
                                 </div>
                             </div>
-                            <div class="turnindicator" style="color: transparent;"></div>
+                            <div class="turnindicator" [style.transform]="'rotate('+(turnRotation * 90 + 45)+'deg)'" style="color: transparent; transition: transform 0.5s ease 0s, background-color 0.3s ease 0s; background-color: var(--turn-indicator-yellow);"></div>
                         </div>
                     </div>
                 </div>
