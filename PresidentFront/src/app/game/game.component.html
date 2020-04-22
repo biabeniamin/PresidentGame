@@ -35,6 +35,15 @@
                                 <div class="card unselectable roesle neun player3" style="">
                                     <div class="cardimg"></div>
                                 </div>
+                                <div class="card unselectable roesle zehn player1" style="">
+                                    <div class="cardimg"></div>
+                                </div>
+                                <div class="card unselectable roesle under player2" style="">
+                                    <div class="cardimg"></div>
+                                </div>
+                                <div class="card unselectable roesle under player0" style="">
+                                    <div class="cardimg"></div>
+                                </div>
                             </div>
                             <div class="turnindicator" style="color: transparent;"></div>
                         </div>
@@ -43,7 +52,9 @@
             </div>
             <div class="player1 hand">
                 <div class="cardholderwrap">
-                    <div class="cardholder"></div>
+                    <div class="cardholder">
+                        
+                    </div>
                 </div>
                 <div class="namefield"></div>
                 <div class="stiche"></div>
@@ -51,7 +62,26 @@
         </div>
         <div class="player0 hand">
             <div class="cardholderwrap">
-                <div class="cardholder"></div>
+                <div class="cardholder">
+                    <div class="card schelle under" style="transform: rotate(-61.4286deg);">
+                        <div class="cardimg"></div>
+                    </div>
+                    <div class="card schelle ober" style="transform: rotate(-36.8571deg);">
+                        <div class="cardimg"></div>
+                    </div>
+                    <div class="card roesle acht" style="transform: rotate(-12.2857deg);">
+                        <div class="cardimg"></div>
+                    </div>
+                    <div class="card eichel acht" style="transform: rotate(12.2857deg);">
+                        <div class="cardimg"></div>
+                    </div>
+                    <div class="card eichel ober" style="transform: rotate(36.8571deg);">
+                        <div class="cardimg"></div>
+                    </div>
+                    <div class="card eichel koenig" style="transform: rotate(61.4286deg);">
+                        <div class="cardimg"></div>
+                    </div>
+                </div>
             </div>
             <div class="namefield"></div>
             <div class="stiche"></div>
@@ -115,11 +145,25 @@
             </div>
         </div>
 
-        <div class="pop-up-window-container" id="lobby-container">
+        <div #popUpWindowContainer2 class="pop-up-window-container" id="lobby-container"
+            [style.display]="displayPopUp ? '' : 'none'">
             <div class="pop-up-window" id="lobby-window">
                 <div class="info-field">
                     <span class="title-2">Waiting For Players</span><br><br>
-                    <div id="waiting-player-container"></div>
+                    <div id="waiting-player-container">
+                        <form (submit)="addLocation($event)">
+                            <h3>Get Locations by LocationId</h3>
+                            <div class="input-container">
+                                <input type="text" placeholder="LocationId" id="LocationId" />
+                                <div class="bar"></div>
+                            </div>
+                            <div class="button-container">
+                                <input type="submit"
+                                    style="padding:20px; background:white;color:tomato;border:2px solid tomato;"
+                                    value="Get by LocationId">
+                            </div>
+                        </form>
+                    </div>
                 </div>
                 <select class="game-type-selector select">
                     <option class="select-option" value="differenzler">Differenzler</option>
@@ -130,6 +174,7 @@
             </div>
         </div>
     </div>
+
 </body>
 
 </html>
