@@ -1,0 +1,111 @@
+<div class="container">
+	<div class="card rerun">
+		<form (submit)="cardService.GetCards()">
+			<div class="button-container">
+				<input type="submit" style="padding:20px; background:white;color:tomato;border:2px solid tomato;" value="Update">
+			</div>
+		</form>
+
+		<form (submit)="updateLive($event)">
+			<div class="button-container">
+				<input type="submit" style="padding:20px; background:white;color:tomato;border:2px solid tomato;" value="Update Live">
+			</div>
+		</form>
+
+		<form (submit)="addCard($event)">
+			<div class="input-container">
+			<input type="text" placeholder= "Type" id="Type" />
+			<div class="bar"></div>
+			</div>
+			<div class="input-container">
+			<input type="text" placeholder= "Number" id="Number" />
+			<div class="bar"></div>
+			</div>
+			<select id=PlayerIdDropDown (change)="playerChanged($event.target.value)">
+				<option [value]="player.playerId" *ngFor= "let player of playerService.players | async" >
+				{{player.playerId}}
+				{{player.name}}
+				{{player.type}}
+				</option>
+			</select>
+			
+			<div class="button-container">
+				<input type="submit" style="padding:20px; background:white;color:tomato;border:2px solid tomato;" value="Add">
+			</div>
+		</form>
+
+		<tbody>
+			<tr>
+				<th>
+					CardId
+				</th>
+				<th>
+					PlayerId
+				</th>
+				<th>
+					Type
+				</th>
+				<th>
+					Number
+				</th>
+				<th>
+					CreationTime
+				</th>
+				<th>
+					player.PlayerId
+				</th>
+				<th>
+					player.Name
+				</th>
+				<th>
+					player.Type
+				</th>
+				<th>
+					player.CreationTime
+				</th>
+			</tr>
+			<tr *ngFor="let card of cardService.cards | async; let i = index">
+				<td>
+					{{card.cardId}}
+				</td>
+				<td>
+					{{card.playerId}}
+				</td>
+				<td>
+					{{card.type}}
+				</td>
+				<td>
+					{{card.number}}
+				</td>
+				<td>
+					{{card.creationTime}}
+				</td>
+				<td *ngIf="card.player">
+					{{card.player.playerId}}
+				</td>
+				<td *ngIf="card.player">
+					{{card.player.name}}
+				</td>
+				<td *ngIf="card.player">
+					{{card.player.type}}
+				</td>
+				<td *ngIf="card.player">
+					{{card.player.creationTime}}
+				</td>
+			</tr>
+		</tbody>
+
+		<form (submit)="getCardsByCardId($event)">
+			<h3>Get Cards by CardId</h3>
+			<div class="input-container">
+			<input type="text" placeholder= "CardId" id="CardId" />
+			<div class="bar"></div>
+			</div>
+			<div class="button-container">
+				<input type="submit" style="padding:20px; background:white;color:tomato;border:2px solid tomato;" value="Get by CardId">
+			</div>
+		</form>
+		
+
+	</div>
+</div>

@@ -1,0 +1,73 @@
+<div class="container">
+	<div class="card rerun">
+		<form (submit)="notificationService.GetNotifications()">
+			<div class="button-container">
+				<input type="submit" style="padding:20px; background:white;color:tomato;border:2px solid tomato;" value="Update">
+			</div>
+		</form>
+
+		<form (submit)="updateLive($event)">
+			<div class="button-container">
+				<input type="submit" style="padding:20px; background:white;color:tomato;border:2px solid tomato;" value="Update Live">
+			</div>
+		</form>
+
+		<form (submit)="addNotification($event)">
+			<div class="input-container">
+			<input type="text" placeholder= "Title" id="Title" />
+			<div class="bar"></div>
+			</div>
+			<div class="input-container">
+			<input type="text" placeholder= "Message" id="Message" />
+			<div class="bar"></div>
+			</div>
+			<div class="button-container">
+				<input type="submit" style="padding:20px; background:white;color:tomato;border:2px solid tomato;" value="Add">
+			</div>
+		</form>
+
+		<tbody>
+			<tr>
+				<th>
+					NotificationId
+				</th>
+				<th>
+					Title
+				</th>
+				<th>
+					Message
+				</th>
+				<th>
+					CreationTime
+				</th>
+			</tr>
+			<tr *ngFor="let notification of notificationService.notifications | async; let i = index">
+				<td>
+					{{notification.notificationId}}
+				</td>
+				<td>
+					{{notification.title}}
+				</td>
+				<td>
+					{{notification.message}}
+				</td>
+				<td>
+					{{notification.creationTime}}
+				</td>
+			</tr>
+		</tbody>
+
+		<form (submit)="getNotificationsByNotificationId($event)">
+			<h3>Get Notifications by NotificationId</h3>
+			<div class="input-container">
+			<input type="text" placeholder= "NotificationId" id="NotificationId" />
+			<div class="bar"></div>
+			</div>
+			<div class="button-container">
+				<input type="submit" style="padding:20px; background:white;color:tomato;border:2px solid tomato;" value="Get by NotificationId">
+			</div>
+		</form>
+		
+
+	</div>
+</div>

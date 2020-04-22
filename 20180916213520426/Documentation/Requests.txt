@@ -1,0 +1,74 @@
+------------Cards----------
+http://192.168.0.100:5000/Cards.php?cmd=getCards - GET request -return all Cards
+
+http://192.168.0.100:5000/Cards.php?cmd=getCardsByCardId&cardId=value - GET request -return Cards filtered by CardId
+
+
+
+http://192.168.0.100:5000/Cards.php?cmd=addCard- POST request with following parameters
+playerId : INT
+type : INT
+number : INT
+add a new Card with specified data and returns the Card with id != 0 if succeeded
+
+
+http://192.168.0.100:5000/Cards.php?cmd=updateCard- PUT request with following parameters
+cardId : INT
+playerId : INT
+type : INT
+number : INT
+update a Card by id and returns the Card with id != 0 if succeeded
+
+
+http://192.168.0.100:5000/Cards.php?cmd=updateCard&cardId=0 - DELETE request
+deletes a Card by id and returns the Card with id == 0 if succeeded
+
+
+------------Players----------
+http://192.168.0.100:5000/Players.php?cmd=getPlayers - GET request -return all Players
+
+http://192.168.0.100:5000/Players.php?cmd=getPlayersByPlayerId&playerId=value - GET request -return Players filtered by PlayerId
+
+
+
+http://192.168.0.100:5000/Players.php?cmd=addPlayer- POST request with following parameters
+name : VARCHAR(30)
+type : INT
+add a new Player with specified data and returns the Player with id != 0 if succeeded
+
+
+http://192.168.0.100:5000/Players.php?cmd=updatePlayer- PUT request with following parameters
+playerId : INT
+name : VARCHAR(30)
+type : INT
+update a Player by id and returns the Player with id != 0 if succeeded
+
+
+http://192.168.0.100:5000/Players.php?cmd=updatePlayer&playerId=0 - DELETE request
+deletes a Player by id and returns the Player with id == 0 if succeeded
+
+
+------------Notifications----------
+http://192.168.0.100:5000/Notifications.php?cmd=getNotifications - GET request -return all Notifications
+
+http://192.168.0.100:5000/Notifications.php?cmd=getNotificationsByNotificationId&notificationId=value - GET request -return Notifications filtered by NotificationId
+
+
+
+http://192.168.0.100:5000/Notifications.php?cmd=addNotification- POST request with following parameters
+title : VARCHAR(20)
+message : TEXT
+add a new Notification with specified data and returns the Notification with id != 0 if succeeded
+
+
+http://192.168.0.100:5000/Notifications.php?cmd=updateNotification- PUT request with following parameters
+notificationId : INT
+title : VARCHAR(20)
+message : TEXT
+update a Notification by id and returns the Notification with id != 0 if succeeded
+
+
+http://192.168.0.100:5000/Notifications.php?cmd=updateNotification&notificationId=0 - DELETE request
+deletes a Notification by id and returns the Notification with id == 0 if succeeded
+
+
