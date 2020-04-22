@@ -424,8 +424,8 @@ body {
  */
  #top-right-button-wrapper > .toggle-last-stich {
     background-image: url(../../assets/sprites/jass/cardset.png);
-    background-size: 1000% 400%;
-    background-position: -900% 0%;
+    background-size: 1400% 400%;
+    background-position: -1300% 0%;
     border-color: white;
 }
 
@@ -724,7 +724,7 @@ body:not(.spectating) .player0.hand .card:not(.unselectable):hover > .cardimg {
 .card > .cardimg {
     background-color: white;
     background-image: url(../../assets/sprites/jass/cardset.png);
-    background-size: 1000% 400%;
+    background-size: 1400% 400%;
     background-position: -900% 0%;
     width: 100%;
     height: 100%;
@@ -736,45 +736,61 @@ body:not(.spectating) .player0.hand .card:not(.unselectable):hover > .cardimg {
 /**
  * Cards
  */
-.card.schelle.sechs > .cardimg      { background-position:    0%    0%; }
-.card.schelle.sieben > .cardimg     { background-position: -100%    0%; }
-.card.schelle.acht > .cardimg       { background-position: -200%    0%; }
-.card.schelle.neun > .cardimg       { background-position: -300%    0%; }
-.card.schelle.zehn > .cardimg       { background-position: -400%    0%; }
-.card.schelle.under > .cardimg      { background-position: -500%    0%; }
-.card.schelle.ober > .cardimg       { background-position: -600%    0%; }
-.card.schelle.koenig > .cardimg     { background-position: -700%    0%; }
-.card.schelle.ass > .cardimg        { background-position: -800%    0%; }
+.card.schelle.two > .cardimg      { background-position:    0%    0%; }
+.card.schelle.three > .cardimg     { background-position: -100%    0%; }
+.card.schelle.four > .cardimg       { background-position: -200%    0%; }
+.card.schelle.five > .cardimg       { background-position: -300%    0%; }
+.card.schelle.six > .cardimg      { background-position:    -400%    0%; }
+.card.schelle.seven > .cardimg     { background-position: -500%    0%; }
+.card.schelle.eight > .cardimg       { background-position: -600%    0%; }
+.card.schelle.nine > .cardimg       { background-position: -700%    0%; }
+.card.schelle.ten > .cardimg       { background-position: -800%    0%; }
+.card.schelle.jack > .cardimg      { background-position: -900%    0%; }
+.card.schelle.queen > .cardimg       { background-position: -1000%    0%; }
+.card.schelle.king > .cardimg     { background-position: -1100%    0%; }
+.card.schelle.ace > .cardimg        { background-position: -1200%    0%; }
 
-.card.eichel.sechs > .cardimg       { background-position:    0% -100%; }
-.card.eichel.sieben > .cardimg      { background-position: -100% -100%; }
-.card.eichel.acht > .cardimg        { background-position: -200% -100%; }
-.card.eichel.neun > .cardimg        { background-position: -300% -100%; }
-.card.eichel.zehn > .cardimg        { background-position: -400% -100%; }
-.card.eichel.under > .cardimg       { background-position: -500% -100%; }
-.card.eichel.ober > .cardimg        { background-position: -600% -100%; }
-.card.eichel.koenig > .cardimg      { background-position: -700% -100%; }
-.card.eichel.ass > .cardimg         { background-position: -800% -100%; }
+.card.eichel.two > .cardimg      { background-position:    0%    0%; }
+.card.eichel.three > .cardimg     { background-position: -100%    0%; }
+.card.eichel.four > .cardimg       { background-position: -200%    0%; }
+.card.eichel.five > .cardimg       { background-position: -300%    0%; }
+.card.eichel.six > .cardimg      { background-position:    -400%    0%; }
+.card.eichel.seven > .cardimg     { background-position: -500%    0%; }
+.card.eichel.eight > .cardimg       { background-position: -600%    0%; }
+.card.eichel.nine > .cardimg       { background-position: -700%    0%; }
+.card.eichel.ten > .cardimg       { background-position: -800%    0%; }
+.card.eichel.jack > .cardimg      { background-position: -900%    0%; }
+.card.eichel.queen > .cardimg       { background-position: -1000%    0%; }
+.card.eichel.king > .cardimg     { background-position: -1100%    0%; }
+.card.eichel.ace > .cardimg        { background-position: -1200%    0%; }
 
-.card.roesle.sechs > .cardimg       { background-position:    0% -200%; }
-.card.roesle.sieben > .cardimg      { background-position: -100% -200%; }
-.card.roesle.acht > .cardimg        { background-position: -200% -200%; }
-.card.roesle.neun > .cardimg        { background-position: -300% -200%; }
-.card.roesle.zehn > .cardimg        { background-position: -400% -200%; }
-.card.roesle.under > .cardimg       { background-position: -500% -200%; }
-.card.roesle.ober > .cardimg        { background-position: -600% -200%; }
-.card.roesle.koenig > .cardimg      { background-position: -700% -200%; }
-.card.roesle.ass > .cardimg         { background-position: -800% -200%; }
+.card.roesle.two > .cardimg      { background-position:    0%    0%; }
+.card.roesle.three > .cardimg     { background-position: -100%    0%; }
+.card.roesle.four > .cardimg       { background-position: -200%    0%; }
+.card.roesle.five > .cardimg       { background-position: -300%    0%; }
+.card.roesle.six > .cardimg      { background-position:    -400%    0%; }
+.card.roesle.seven > .cardimg     { background-position: -500%    0%; }
+.card.roesle.eight > .cardimg       { background-position: -600%    0%; }
+.card.roesle.nine > .cardimg       { background-position: -700%    0%; }
+.card.roesle.ten > .cardimg       { background-position: -800%    0%; }
+.card.roesle.jack > .cardimg      { background-position: -900%    0%; }
+.card.roesle.queen > .cardimg       { background-position: -1000%    0%; }
+.card.roesle.king > .cardimg     { background-position: -1100%    0%; }
+.card.roesle.ace > .cardimg        { background-position: -1200%    0%; }
 
-.card.schilte.sechs > .cardimg      { background-position:    0% -300%; }
-.card.schilte.sieben > .cardimg     { background-position: -100% -300%; }
-.card.schilte.acht > .cardimg       { background-position: -200% -300%; }
-.card.schilte.neun > .cardimg       { background-position: -300% -300%; }
-.card.schilte.zehn > .cardimg       { background-position: -400% -300%; }
-.card.schilte.under > .cardimg      { background-position: -500% -300%; }
-.card.schilte.ober > .cardimg       { background-position: -600% -300%; }
-.card.schilte.koenig > .cardimg     { background-position: -700% -300%; }
-.card.schilte.ass > .cardimg        { background-position: -800% -300%; }
+.card.schilte.two > .cardimg      { background-position:    0%    0%; }
+.card.schilte.three > .cardimg     { background-position: -100%    0%; }
+.card.schilte.four > .cardimg       { background-position: -200%    0%; }
+.card.schilte.five > .cardimg       { background-position: -300%    0%; }
+.card.schilte.six > .cardimg      { background-position:    -400%    0%; }
+.card.schilte.seven > .cardimg     { background-position: -500%    0%; }
+.card.schilte.eight > .cardimg       { background-position: -600%    0%; }
+.card.schilte.nine > .cardimg       { background-position: -700%    0%; }
+.card.schilte.ten > .cardimg       { background-position: -800%    0%; }
+.card.schilte.jack > .cardimg      { background-position: -900%    0%; }
+.card.schilte.queen > .cardimg       { background-position: -1000%    0%; }
+.card.schilte.king > .cardimg     { background-position: -1100%    0%; }
+.card.schilte.ace > .cardimg        { background-position: -1200%    0%; }
 
 /*
 * order the different trumpf options
