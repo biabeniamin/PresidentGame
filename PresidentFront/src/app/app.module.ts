@@ -5,15 +5,19 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { GameComponent } from './game/game.component';
 import { RouterModule } from '@angular/router';
+import { CardComponent } from './card/card.component';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
     AppComponent,
-    GameComponent
+    GameComponent,
+    CardComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
+    HttpClientModule,
     RouterModule.forRoot([
       { 
         path : '',
@@ -22,6 +26,10 @@ import { RouterModule } from '@angular/router';
       { 
         path : 'game',
         component : GameComponent
+      },
+      { 
+        path : 'cards',
+        component : CardComponent
       },
     ])
   ],

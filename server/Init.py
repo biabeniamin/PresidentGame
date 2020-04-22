@@ -20,9 +20,9 @@ def init():
 	deck=Player.addPlayer(session, Player.Player(name="Deck", type=0))
 	mat=Player.addPlayer(session, Player.Player(name="Mat", type=1))
 	player1=Player.addPlayer(session, Player.Player(name="Player1", type=2))
-	player2=Player.addPlayer(session, Player.Player(name="Player2", type=2))
-	player3=Player.addPlayer(session, Player.Player(name="Player3", type=2))
-	player4=Player.addPlayer(session, Player.Player(name="Player4", type=2))
+	player2=Player.addPlayer(session, Player.Player(name="Player2", type=3))
+	player3=Player.addPlayer(session, Player.Player(name="Player3", type=4))
+	player4=Player.addPlayer(session, Player.Player(name="Player4", type=5))
 
 	for i in range(2, 15):
 		for j in range(0, 4):

@@ -114,23 +114,10 @@
         <div class="player0 hand">
             <div class="cardholderwrap">
                 <div class="cardholder">
-                    <div class="card schelle six" style="transform: rotate(-61.4286deg);">
-                        <div class="cardimg"></div>
-                    </div>
-                    <div class="card schelle seven" style="transform: rotate(-36.8571deg);">
-                        <div class="cardimg"></div>
-                    </div>
-                    <div class="card schelle eight" style="transform: rotate(-12.2857deg);">
-                        <div class="cardimg"></div>
-                    </div>
-                    <div class="card schelle nine" style="transform: rotate(12.2857deg);">
-                        <div class="cardimg"></div>
-                    </div>
-                    <div class="card schelle ober" style="transform: rotate(36.8571deg);">
-                        <div class="cardimg"></div>
-                    </div>
-                    <div class="card schelle ace" style="transform: rotate(61.4286deg);">
-                        <div class="cardimg"></div>
+                    <div *ngFor="let card of playerCards">
+                        <div  class="card schelle six" [style.transform]="'rotate('+(card.rotation)+'deg)'">
+                            <div class="cardimg"></div>
+                        </div>
                     </div>
                 </div>
             </div>
