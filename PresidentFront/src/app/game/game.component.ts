@@ -3,6 +3,8 @@ import { DOCUMENT } from '@angular/common';
 import { CardService } from '../CardService';
 import { Card } from '../Models/Card';
 import { PlayerService } from '../PlayerService';
+import { WebSockets } from '../WebSockets';
+import { Subject } from 'rxjs';
 
 @Component({
   selector: 'app-game',
@@ -16,6 +18,8 @@ export class GameComponent implements OnInit {
   public turnRotation : number = 3;
   public playerCards : any;
   public playerId = 3;
+
+  private webSocketsSubject : Subject<any>;
 
   getCardTypeClass(type : number) : string
   {
@@ -69,7 +73,7 @@ export class GameComponent implements OnInit {
     return "";
   }
 
-  constructor(private cardService : CardService, private playerService : PlayerService)  {
+  constructor(private cardService : CardService, private playerService : PlayerService, private webSockets : WebSockets)  {
       console.log(this.myDiv);
       cardService.cards.subscribe(data => {
         console.log(data);
@@ -90,6 +94,8 @@ export class GameComponent implements OnInit {
         }
         console.log(this.playerCards);
       })
+
+      this.webSockets.SetOnConnectionEstablished(() => this.ConnectToWebSockets());
    }
 
   ngOnInit() {
@@ -100,11 +106,28 @@ export class GameComponent implements OnInit {
     event.preventDefault();
 		const target = event.target;
 		let player = PlayerService.GetDefaultPlayer();
-		player.name = target.querySelector('#Name').value;
+    player.name = target.querySelector('#Name').value;
+    player.type = 2;
 		console.log(player);
 		this.playerService.AddPlayer(player);
-
-    this.displayPopUp = false;
+  }
+  
+  ConnectToWebSockets()
+	{
+		this.webSocketsSubject = this.webSockets.getSubject('Game');
+		this.webSocketsSubject.subscribe(message =>
+		{
+				if(message.sender != WebSockets.name)
+					return
+				let request = message.data;
+				console.log(request);
+			if(request.operation == 'registered')
+			{
+        this.displayPopUp = false;
+        this.playerId = request.data.playerId;
+				//this.cards.next(request.data);
+			}
+		});
 	}
 
 }
