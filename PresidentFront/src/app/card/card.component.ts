@@ -3,6 +3,7 @@ import { CardService } from '../CardService'
 import {HttpClient} from '@angular/common/http';
 import { FormControl, FormGroup } from '@angular/forms';
 import { PlayerService } from '../PlayerService'
+import { WebSockets, Request, Message } from '../WebSockets';
 
 @Component({
 selector: 'app-card',
@@ -14,7 +15,8 @@ export class CardComponent implements OnInit
 	
 	constructor(private http:HttpClient, 
 		private cardService : CardService, 
-		private playerService : PlayerService
+		private playerService : PlayerService,
+		private webSockets : WebSockets
 	)
 	{
 	
@@ -35,6 +37,7 @@ export class CardComponent implements OnInit
 		card.number = target.querySelector('#Number').value;
 		console.log(card);
 		this.cardService.AddCard(card);
+		
 	}
 	
 	getCardsByCardId(event)

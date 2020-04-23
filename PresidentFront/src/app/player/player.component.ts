@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { PlayerService } from '../PlayerService'
 import {HttpClient} from '@angular/common/http';
 import { FormControl, FormGroup } from '@angular/forms';
+import { WebSockets, Message, Request } from '../WebSockets';
 
 @Component({
 selector: 'app-player',
@@ -12,7 +13,8 @@ export class PlayerComponent implements OnInit
 {
 	
 	constructor(private http:HttpClient, 
-		private playerService : PlayerService
+		private playerService : PlayerService,
+		private webSockets : WebSockets
 	)
 	{
 	
@@ -31,7 +33,8 @@ export class PlayerComponent implements OnInit
 		player.name = target.querySelector('#Name').value;
 		player.type = target.querySelector('#Type').value;
 		console.log(player);
-		this.playerService.AddPlayer(player);
+		//this.playerService.AddPlayer(player);
+		this.webSockets.Send(new Request('start', 'Control', null));
 	}
 	
 	getPlayersByPlayerId(event)

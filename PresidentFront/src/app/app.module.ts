@@ -7,12 +7,14 @@ import { GameComponent } from './game/game.component';
 import { RouterModule } from '@angular/router';
 import { CardComponent } from './card/card.component';
 import { HttpClientModule } from '@angular/common/http';
+import { PlayerComponent } from './player/player.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     GameComponent,
-    CardComponent
+    CardComponent,
+    PlayerComponent
   ],
   imports: [
     BrowserModule,
@@ -30,6 +32,10 @@ import { HttpClientModule } from '@angular/common/http';
       { 
         path : 'cards',
         component : CardComponent
+      },
+      { 
+        path : 'control',
+        component : PlayerComponent
       },
     ])
   ],

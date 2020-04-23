@@ -77,8 +77,9 @@ export class GameComponent implements OnInit {
       console.log(this.myDiv);
       cardService.cards.subscribe(data => {
         console.log(data);
+        console.log(this.playerId)
         this.playerCards = cardService.cards.getValue().filter((card)=>{
-          return card.player.type==this.playerId;
+          return card.playerId==this.playerId;
         });
 
         let range = 136;
