@@ -4,14 +4,26 @@ import websockets
 import json
 from SqlAlchemyMain import session
 import CardWebSockets
+from SqlAlchemy import convertToJson, dict_as_obj
 import PlayerWebSockets
+from PlayerWebSockets import playersConnected
 import NotificationWebSockets
+import Player
+import Card
 
 users = set()
 def connectedSuccessfullyEvent():
 	return json.dumps({'table': 'WebSockets', 'operation' : 'connectedSuccessfully'})
 
 
+async def controlRequestReceived(websocket, session, request):
+	global playersSubscribers
+	#Websockets endpoints
+	print("adsdas")
+	if request['operation'] == 'start':
+		await CardWebSockets.shuffleCards(session, playersConnected)
+		#response = convertToJson({'operation' : 'get', 'table' : 'Players', 'data' : playersConnected})
+		#await websocket.send(response)
 async def requestReceived(websocket, path):
 	users.add(websocket)
 	websocket.authenticated = False
@@ -27,6 +39,8 @@ async def requestReceived(websocket, path):
 				await PlayerWebSockets.requestReceived(websocket, session, request)
 			elif request['table'] == 'Notifications':
 				await NotificationWebSockets.requestReceived(websocket, session, request)
+			elif request['table'] == 'Control':
+				await controlRequestReceived(websocket, session, request)
 	
 	finally:
 		print('client disconnected')

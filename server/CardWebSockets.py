@@ -2,7 +2,33 @@
 from SqlAlchemy import convertToJson, dict_as_obj
 from WebSocketsHelpers import checkArguments, removeClosedConnection
 import Card
+from random import random
+from math import floor
 cardsSubscribers = set()
+async def shuffleCards(session, playersConnected):
+	print(playersConnected)
+	print(len(playersConnected))
+
+	Card.deleteAllCards(session)
+
+	nrCards = 4 * 11
+	nrCardsPerPlayer = nrCards / len(playersConnected)
+	cards=[]
+	for i in range(4, 15):
+		for j in range(0, 4):
+			cards.append(Card.Card(type=j, number=i, playerId=0))
+	playerIndex = 0
+	while len(cards) > 0:
+		print(len(cards))
+		card = cards[floor(random() * len(cards))]
+		card.playerId = playersConnected[playerIndex % len(playersConnected)]['player'].playerId
+		playerIndex = playerIndex + 1
+		Card.addCard(session, card)
+		cards.remove(card)
+	cards = Card.getCards(session)
+	response = convertToJson({'operation' : 'get', 'table' : 'Cards', 'data' : cards})
+	for player in playersConnected:
+		 await player['socket'].send(response)
 async def requestReceived(websocket, session, request):
 	global cardsSubscribers
 	#Websockets endpoints

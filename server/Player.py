@@ -68,6 +68,8 @@ def deletePlayer(session, playerId):
 	return result
 
 
+def deleteAllPlayer(session, playerId):
+	result = session.query(Player).delete()
 
 #API endpoints
 #request parser funtion

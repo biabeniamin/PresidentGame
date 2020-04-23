@@ -81,7 +81,7 @@ def addCard(session, card):
 	session.add(card)
 	session.commit()
 	#this must stay because sqlalchemy query the database because of this line
-	print('Value inserted with cardId=', card.cardId)
+	print('Value inserted with cardId=', card.cardId, " and playerId=", card.playerId)
 	card.player = getPlayersByPlayerId(session, card.playerId)[0]
 	return card
 
@@ -103,6 +103,8 @@ def deleteCard(session, cardId):
 	session.commit()
 	return result
 
+def deleteAllCards(session):
+	result = session.query(Card).delete()
 
 
 #API endpoints

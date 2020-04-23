@@ -2,6 +2,7 @@
 from SqlAlchemy import convertToJson, dict_as_obj
 from WebSocketsHelpers import checkArguments, removeClosedConnection
 import Player
+playersConnected = []
 playersSubscribers = set()
 async def requestReceived(websocket, session, request):
 	global playersSubscribers
@@ -27,6 +28,7 @@ async def requestReceived(websocket, session, request):
 			return
 		player = dict_as_obj(request['data'], Player.Player(), ['playerId', 'creationTime'])
 		player = Player.addPlayer(session, player)
+		playersConnected.append({'player':player, 'socket':websocket})
 
 		#inform player
 		response = convertToJson({'operation' : 'registered', 'table' : 'Game', 'data' : player})
