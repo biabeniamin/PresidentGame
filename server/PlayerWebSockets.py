@@ -27,6 +27,11 @@ async def requestReceived(websocket, session, request):
 			return
 		player = dict_as_obj(request['data'], Player.Player(), ['playerId', 'creationTime'])
 		player = Player.addPlayer(session, player)
+
+		#inform player
+		response = convertToJson({'operation' : 'registered', 'table' : 'Game', 'data' : player})
+		await websocket.send(response)
+
 		response = convertToJson({'operation' : 'add', 'table' : 'Players', 'data' : player})
 		playersSubscribers = set(filter(removeClosedConnection, playersSubscribers))
 		for subscriber in playersSubscribers:
