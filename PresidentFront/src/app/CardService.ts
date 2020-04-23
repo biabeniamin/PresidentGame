@@ -29,7 +29,8 @@ export class CardService
 		playerId : 0,
 		type : 0,
 		number : 0,
-		creationTime : '2000-01-01 00:00:00'
+		creationTime : '2000-01-01 00:00:00',
+		player : PlayerService.GetDefaultPlayer()
 		};
 	}
 	

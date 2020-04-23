@@ -9,6 +9,7 @@ export interface Card
 	type : number;
 	number : number;
 	creationTime : string;
+	player : Player;
 }
 
 export interface CardJSON

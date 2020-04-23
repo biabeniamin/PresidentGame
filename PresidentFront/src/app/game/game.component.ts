@@ -2,6 +2,7 @@ import { Component, OnInit, Inject, ViewChild, ElementRef } from '@angular/core'
 import { DOCUMENT } from '@angular/common';
 import { CardService } from '../CardService';
 import { Card } from '../Models/Card';
+import { PlayerService } from '../PlayerService';
 
 @Component({
   selector: 'app-game',
@@ -11,7 +12,7 @@ import { Card } from '../Models/Card';
 export class GameComponent implements OnInit {
 
   @ViewChild('popUpWindowContainer2', { static: false }) myDiv: any;
-  public displayPopUp : boolean = false;
+  public displayPopUp : boolean = true;
   public turnRotation : number = 3;
   public playerCards : any;
   public playerId = 3;
@@ -68,7 +69,7 @@ export class GameComponent implements OnInit {
     return "";
   }
 
-  constructor(private cardService : CardService)  {
+  constructor(private cardService : CardService, private playerService : PlayerService)  {
       console.log(this.myDiv);
       cardService.cards.subscribe(data => {
         console.log(data);
@@ -94,17 +95,16 @@ export class GameComponent implements OnInit {
   ngOnInit() {
   }
   
-  addLocation(event)
+  addPlayer(event)
 	{
     event.preventDefault();
 		const target = event.target;
-    console.log(this.myDiv);
-    console.log(this.myDiv.nativeElement.style);
-    //this.myDiv.nativeElement.style["display"] = "none"
-    console.log(this.myDiv.nativeElement.style);
+		let player = PlayerService.GetDefaultPlayer();
+		player.name = target.querySelector('#Name').value;
+		console.log(player);
+		this.playerService.AddPlayer(player);
 
     this.displayPopUp = false;
-    this.turnRotation++;
 	}
 
 }

@@ -115,7 +115,7 @@
             <div class="cardholderwrap">
                 <div class="cardholder">
                     <div *ngFor="let card of playerCards">
-                        <div  class="card schelle six" [style.transform]="'rotate('+(card.rotation)+'deg)'">
+                        <div  class="{{card.class}}" [style.transform]="'rotate('+(card.rotation)+'deg)'">
                             <div class="cardimg"></div>
                         </div>
                     </div>
@@ -189,16 +189,13 @@
                 <div class="info-field">
                     <span class="title-2">Waiting For Players</span><br><br>
                     <div id="waiting-player-container">
-                        <form (submit)="addLocation($event)">
-                            <h3>Get Locations by LocationId</h3>
+                        <form (submit)="addPlayer($event)">
                             <div class="input-container">
-                                <input type="text" placeholder="LocationId" id="LocationId" />
-                                <div class="bar"></div>
+                            <input type="text" placeholder= "Name" id="Name" value="test" />
+                            <div class="bar"></div>
                             </div>
                             <div class="button-container">
-                                <input type="submit"
-                                    style="padding:20px; background:white;color:tomato;border:2px solid tomato;"
-                                    value="Get by LocationId">
+                                <input type="submit" style="padding:20px; background:white;color:tomato;border:2px solid tomato;" value="Enter">
                             </div>
                         </form>
                     </div>
