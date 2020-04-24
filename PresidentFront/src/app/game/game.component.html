@@ -14,7 +14,7 @@
     <div id="gamecontent">
         <div class="player2 hand">
             <div class="cardholderwrap">
-                <div *ngIf="playersIndexes.length > 0" class="cardholder">
+                <div *ngIf="playersIndexes.length > 3" class="cardholder">
                     <div *ngFor="let card of playerCards[playersIndexes[3]].cards">
                         <div  class="{{card.class}}" [style.transform]="'rotate('+(card.rotation)+'deg)'">
                             <div class="cardimg"></div>
@@ -28,7 +28,7 @@
         <div id="innergamecontent">
             <div class="player3 hand">
                 <div class="cardholderwrap">
-                    <div *ngIf="playersIndexes.length > 0" class="cardholder">
+                    <div *ngIf="playersIndexes.length > 2" class="cardholder">
                         <div *ngFor="let card of playerCards[playersIndexes[2]].cards">
                             <div  class="{{card.class}}" [style.transform]="'rotate('+(card.rotation)+'deg)'">
                                 <div class="cardimg"></div>
@@ -69,7 +69,7 @@
             </div>
             <div class="player1 hand">
                 <div class="cardholderwrap">
-                    <div *ngIf="playersIndexes.length > 0" class="cardholder">
+                    <div *ngIf="playersIndexes.length > 1" class="cardholder">
                         <div *ngFor="let card of playerCards[playersIndexes[1]].cards">
                             <div  class="{{card.class}}" [style.transform]="'rotate('+(card.rotation)+'deg)'">
                                 <div class="cardimg"></div>
