@@ -14,7 +14,7 @@ import { Subject } from 'rxjs';
 export class GameComponent implements OnInit {
 
   @ViewChild('popUpWindowContainer2', { static: false }) myDiv: any;
-  public displayPopUp : boolean = false;
+  public displayPopUp : boolean = true;
   public turnRotation : number = 3;
   public playerCards : any[];
   public playerId = 119;
@@ -80,19 +80,15 @@ export class GameComponent implements OnInit {
         if(data.length < 1)
           return;
         console.log(data);
-        cardService.Subscribe();
         this.playerCards = data;
         let hasBeenFounded = false;
         for(let i = 0; i<this.playerCards.length; i++)
         {
           this.playerCards[i].cards = [];
-          if(this.playerCards[i].playerId == this.playerId)
+          if(this.playerCards[i].playerId == this.playerId || hasBeenFounded)
           {
             this.playersIndexes.push(i);
-          }
-          else if(hasBeenFounded)
-          {
-            this.playersIndexes.push(i);
+            hasBeenFounded = true;
           }
         }
         //add the beginning
@@ -104,6 +100,9 @@ export class GameComponent implements OnInit {
           }
           this.playersIndexes.push(i);
         }
+        console.log(this.playersIndexes);
+        console.log(this.playerCards);
+        cardService.Subscribe();
       })
       cardService.cards.subscribe(data => {
         if(data.length < 1)
@@ -169,6 +168,7 @@ export class GameComponent implements OnInit {
 			{
         this.displayPopUp = false;
         this.playerId = request.data.playerId;
+        console.log("new id="+this.playerId)
 				//this.cards.next(request.data);
 			}
 		});

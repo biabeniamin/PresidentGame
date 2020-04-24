@@ -89,7 +89,7 @@
             </div>
             <div class="player1 hand">
                 <div class="cardholderwrap">
-                    <div *ngIf="playersIndexes" class="cardholder">
+                    <div *ngIf="playersIndexes.length > 0" class="cardholder">
                         <div *ngFor="let card of playerCards[playersIndexes[1]].cards">
                             <div  class="{{card.class}}" [style.transform]="'rotate('+(card.rotation)+'deg)'">
                                 <div class="cardimg"></div>
@@ -103,7 +103,7 @@
         </div>
         <div class="player0 hand">
             <div class="cardholderwrap">
-                <div class="cardholder">
+                <div *ngIf="playersIndexes.length > 0" class="cardholder">
                     <div *ngFor="let card of playerCards[playersIndexes[0]].cards">
                         <div  class="{{card.class}}" [style.transform]="'rotate('+(card.rotation)+'deg)'">
                             <div class="cardimg"></div>
