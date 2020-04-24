@@ -37,7 +37,7 @@ export class PlayerService
 	
 	constructor(private http:HttpClient, private webSockets : WebSockets)
 	{
-		this.players = new BehaviorSubject([PlayerService.GetDefaultPlayer()]);
+		this.players = new BehaviorSubject([]);
 		this.GetPlayers();
 		this.webSockets.SetOnConnectionEstablished(() => this.ConnectToWebSockets());
 	

@@ -41,7 +41,7 @@ export class CardService
 	
 	constructor(private http:HttpClient, private webSockets : WebSockets)
 	{
-		this.cards = new BehaviorSubject([CardService.GetDefaultCard()]);
+		this.cards = new BehaviorSubject([]);
 		this.GetCards();
 		this.webSockets.SetOnConnectionEstablished(() => this.ConnectToWebSockets());
 	
@@ -97,6 +97,11 @@ export class CardService
 		});
 	}
 	
+	Subscribe()
+	{
+		this.webSocketsSubject.next(new Message(this.constructor.name, new Request('subscribe', 'Cards', null)));
+	}
+
 	ConnectToWebSockets()
 	{
 		this.webSocketsSubject = this.webSockets.getSubject('Cards');
@@ -144,7 +149,7 @@ export class CardService
 			}
 		
 		});
-		this.webSocketsSubject.next(new Message(this.constructor.name, new Request('subscribe', 'Cards', null)));
+		
 	}
 	
 
