@@ -14,10 +14,11 @@ import { Subject } from 'rxjs';
 export class GameComponent implements OnInit {
 
   @ViewChild('popUpWindowContainer2', { static: false }) myDiv: any;
-  public displayPopUp : boolean = true;
+  public displayPopUp : boolean = false;
   public turnRotation : number = 3;
-  public playerCards : any;
-  public playerId = 3;
+  public playerCards : any[];
+  public playerId = 119;
+  public playersIndexes = [];
 
   private webSocketsSubject : Subject<any>;
 
@@ -75,23 +76,65 @@ export class GameComponent implements OnInit {
 
   constructor(private cardService : CardService, private playerService : PlayerService, private webSockets : WebSockets)  {
       console.log(this.myDiv);
-      cardService.cards.subscribe(data => {
+      playerService.players.subscribe(data => {
+        if(data.length < 1)
+          return;
         console.log(data);
-        console.log(this.playerId)
-        this.playerCards = cardService.cards.getValue().filter((card)=>{
-          return card.playerId==this.playerId;
-        });
-
-        let range = 136;
-        range=Math.min(range, this.playerCards.length * 28)
-
+        cardService.Subscribe();
+        this.playerCards = data;
+        let hasBeenFounded = false;
         for(let i = 0; i<this.playerCards.length; i++)
         {
-          let card = this.playerCards[i];
-          card.rotation=-range/2 + range/(this.playerCards.length - 1) * i;
-          card.class = "card";
-          card.class += " "+this.getCardTypeClass(card.type);
-          card.class += " "+this.getCardNumberClass(card.number);
+          this.playerCards[i].cards = [];
+          if(this.playerCards[i].playerId == this.playerId)
+          {
+            this.playersIndexes.push(i);
+          }
+          else if(hasBeenFounded)
+          {
+            this.playersIndexes.push(i);
+          }
+        }
+        //add the beginning
+        for(let i = 0; i<this.playerCards.length; i++)
+        {
+          if(this.playerCards[i].playerId == this.playerId)
+          {
+            break;
+          }
+          this.playersIndexes.push(i);
+        }
+      })
+      cardService.cards.subscribe(data => {
+        if(data.length < 1)
+          return;
+        console.log(data);
+        console.log(this.playerId)
+
+        data.forEach(card => {
+          this.playerCards.forEach(player => {
+            if(player.playerId == card.playerId)
+              player.cards.push(card);
+          });
+        });
+        console.log(this.playerCards);
+        /*this.playerCards = cardService.cards.getValue().filter((card)=>{
+          return card.playerId==this.playerId;
+        });*/
+
+        for(let j = 0; j<this.playerCards.length; j++)
+        {
+          let range = 136;
+          range=Math.min(range, this.playerCards.length * 28)
+
+          for(let i = 0; i<this.playerCards[j].cards.length; i++)
+          {
+            let card = this.playerCards[j].cards[i];
+            card.rotation=-range/2 + range/(this.playerCards[j].cards.length - 1) * i;
+            card.class = "card";
+            card.class += " "+this.getCardTypeClass(card.type);
+            card.class += " "+this.getCardNumberClass(card.number);
+          }
         }
         console.log(this.playerCards);
       })
