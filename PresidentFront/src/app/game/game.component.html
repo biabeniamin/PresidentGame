@@ -14,21 +14,11 @@
     <div id="gamecontent">
         <div class="player2 hand">
             <div class="cardholderwrap">
-                <div class="cardholder">
-                    <div class="card" style="transform: rotate(-57.3333deg);">
-                        <div class="cardimg"></div>
-                    </div>
-                    <div class="card" style="transform: rotate(-28.6667deg);">
-                        <div class="cardimg"></div>
-                    </div>
-                    <div class="card" style="transform: rotate(7.10543e-15deg);">
-                        <div class="cardimg"></div>
-                    </div>
-                    <div class="card" style="transform: rotate(28.6667deg);">
-                        <div class="cardimg"></div>
-                    </div>
-                    <div class="card" style="transform: rotate(57.3333deg);">
-                        <div class="cardimg"></div>
+                <div *ngIf="playersIndexes.length > 0" class="cardholder">
+                    <div *ngFor="let card of playerCards[playersIndexes[3]].cards">
+                        <div  class="{{card.class}}" [style.transform]="'rotate('+(card.rotation)+'deg)'">
+                            <div class="cardimg"></div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -38,21 +28,11 @@
         <div id="innergamecontent">
             <div class="player3 hand">
                 <div class="cardholderwrap">
-                    <div class="cardholder">
-                        <div class="card" style="transform: rotate(-57.3333deg);">
-                            <div class="cardimg"></div>
-                        </div>
-                        <div class="card" style="transform: rotate(-28.6667deg);">
-                            <div class="cardimg"></div>
-                        </div>
-                        <div class="card" style="transform: rotate(7.10543e-15deg);">
-                            <div class="cardimg"></div>
-                        </div>
-                        <div class="card" style="transform: rotate(28.6667deg);">
-                            <div class="cardimg"></div>
-                        </div>
-                        <div class="card" style="transform: rotate(57.3333deg);">
-                            <div class="cardimg"></div>
+                    <div *ngIf="playersIndexes.length > 0" class="cardholder">
+                        <div *ngFor="let card of playerCards[playersIndexes[2]].cards">
+                            <div  class="{{card.class}}" [style.transform]="'rotate('+(card.rotation)+'deg)'">
+                                <div class="cardimg"></div>
+                            </div>
                         </div>
                     </div>
                 </div>
