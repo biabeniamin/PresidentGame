@@ -17,18 +17,27 @@ users = set()
 def connectedSuccessfullyEvent():
 	return json.dumps({'table': 'WebSockets', 'operation' : 'connectedSuccessfully'})
 
+async def updateTurn():
+	global turn
+	if turn >= len(playersConnected):
+		turn = 0
+	await PlayerWebSockets.setTurn(session, turn)
 
 async def controlRequestReceived(websocket, session, request):
 	global playersSubscribers
+	global turn
 	#Websockets endpoints
 	print("adsdas")
 	if request['operation'] == 'start':
 		#Card.deleteAllCards(session)
 		#Player.deleteAllPlayers(session)
 		await CardWebSockets.shuffleCards(session, playersConnected)
-		await PlayerWebSockets.setTurn(session, turn)
+		turn = 0
+		await updateTurn()
 	elif request['operation'] == 'cardSelected':
 		await CardWebSockets.cardSelected(session, playersConnected, request['data'])
+		turn = turn + 1
+		await updateTurn()
 async def requestReceived(websocket, path):
 	users.add(websocket)
 	websocket.authenticated = False
