@@ -17,7 +17,7 @@ export class GameComponent implements OnInit {
   public displayPopUp : boolean = true;
   public turnRotation : number = 3;
   public playerCards : any[];
-  public playerId = 119;
+  public playerId = 144;
   public playersIndexes = [];
 
   private webSocketsSubject : Subject<any>;
@@ -82,12 +82,14 @@ export class GameComponent implements OnInit {
         console.log(data);
         this.playerCards = data;
         let hasBeenFounded = false;
+        this.playersIndexes = [];
         for(let i = 0; i<this.playerCards.length; i++)
         {
           this.playerCards[i].cards = [];
-          if(this.playerCards[i].playerId == this.playerId || hasBeenFounded)
+          if(this.playerCards[i].playerId == this.playerId || hasBeenFounded == true)
           {
             this.playersIndexes.push(i);
+            console.log(this.playersIndexes);
             hasBeenFounded = true;
           }
         }
@@ -99,10 +101,12 @@ export class GameComponent implements OnInit {
             break;
           }
           this.playersIndexes.push(i);
+          console.log(this.playersIndexes);
         }
         console.log(this.playersIndexes);
         console.log(this.playerCards);
         cardService.Subscribe();
+        console.log("display cards with id for me:" + this.playerId);
       })
       cardService.cards.subscribe(data => {
         if(data.length < 1)
