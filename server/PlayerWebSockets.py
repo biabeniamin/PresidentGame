@@ -4,6 +4,10 @@ from WebSocketsHelpers import checkArguments, removeClosedConnection
 import Player
 playersConnected = []
 playersSubscribers = set()
+async def setTurn(session, turn):
+	turnMessage = convertToJson({'operation' : 'turn', 'table' : 'Game', 'data' : {'playerIndex' : turn}})
+	for player in playersConnected:
+		await player['socket'].send(turnMessage)
 async def requestReceived(websocket, session, request):
 	global playersSubscribers
 	#Websockets endpoints

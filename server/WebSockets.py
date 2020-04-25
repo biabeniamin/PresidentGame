@@ -11,6 +11,8 @@ import NotificationWebSockets
 import Player
 import Card
 
+turn = 0
+
 users = set()
 def connectedSuccessfullyEvent():
 	return json.dumps({'table': 'WebSockets', 'operation' : 'connectedSuccessfully'})
@@ -24,8 +26,7 @@ async def controlRequestReceived(websocket, session, request):
 		#Card.deleteAllCards(session)
 		#Player.deleteAllPlayers(session)
 		await CardWebSockets.shuffleCards(session, playersConnected)
-		#response = convertToJson({'operation' : 'get', 'table' : 'Players', 'data' : playersConnected})
-		#await websocket.send(response)
+		await PlayerWebSockets.setTurn(session, turn)
 async def requestReceived(websocket, path):
 	users.add(websocket)
 	websocket.authenticated = False
