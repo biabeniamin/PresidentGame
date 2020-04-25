@@ -27,6 +27,8 @@ async def controlRequestReceived(websocket, session, request):
 		#Player.deleteAllPlayers(session)
 		await CardWebSockets.shuffleCards(session, playersConnected)
 		await PlayerWebSockets.setTurn(session, turn)
+	elif request['operation'] == 'cardSelected':
+		await CardWebSockets.cardSelected(session, playersConnected, request['data'])
 async def requestReceived(websocket, path):
 	users.add(websocket)
 	websocket.authenticated = False

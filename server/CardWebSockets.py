@@ -28,6 +28,12 @@ async def shuffleCards(session, playersConnected):
 	response = convertToJson({'operation' : 'get', 'table' : 'Cards', 'data' : cards})
 	for player in playersConnected:
 		 await player['socket'].send(response)
+async def cardSelected(session, playersConnected, card):
+	card = Card.deleteCard(session, card['cardId'])
+	response = convertToJson({'operation' : 'delete', 'table' : 'Cards', 'data' : card})
+	cardsSubscribers = set(filter(removeClosedConnection, cardsSubscribers))
+	for subscriber in cardsSubscribers:
+		 await subscriber.send(response)
 async def requestReceived(websocket, session, request):
 	global cardsSubscribers
 	#Websockets endpoints
