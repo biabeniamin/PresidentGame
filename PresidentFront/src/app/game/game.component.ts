@@ -171,6 +171,7 @@ export class GameComponent implements OnInit {
   cardClicked(card)
   {
     console.log(card);
+    this.webSockets.Send(new Request('cardSelected', 'Control', card));
 
   }
   
