@@ -3,7 +3,7 @@ import { DOCUMENT } from '@angular/common';
 import { CardService } from '../CardService';
 import { Card } from '../Models/Card';
 import { PlayerService } from '../PlayerService';
-import { WebSockets } from '../WebSockets';
+import { WebSockets, Request, Message } from '../WebSockets';
 import { Subject } from 'rxjs';
 
 @Component({
@@ -14,7 +14,7 @@ import { Subject } from 'rxjs';
 export class GameComponent implements OnInit {
 
   @ViewChild('popUpWindowContainer2', { static: false }) myDiv: any;
-  public displayPopUp : boolean = false;
+  public displayPopUp : boolean = true;
   public turnRotation : number = 3;
   public playerCards : any[];
   public playerId = 164;
@@ -118,6 +118,11 @@ export class GameComponent implements OnInit {
         console.log(data);
         console.log(this.playerId)
 
+        //remove old cards from all players
+        this.playerCards.forEach(player => {
+          player.cards = [];
+        })
+
         data.forEach(card => {
           this.playerCards.forEach(player => {
             if(player.playerId == card.playerId)
@@ -166,6 +171,7 @@ export class GameComponent implements OnInit {
   cardClicked(card)
   {
     console.log(card);
+
   }
   
   ConnectToWebSockets()
