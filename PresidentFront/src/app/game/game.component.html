@@ -12,24 +12,24 @@
 
 <body>
     <div id="gamecontent">
-        <div *ngIf="playersIndexes.length > 3" class="player2 hand">
+        <div *ngIf="playersIndexes.length > 2" class="player2 hand">
             <div class="cardholderwrap">
                 <div class="cardholder">
-                    <div *ngFor="let card of playerCards[playersIndexes[3]].cards">
+                    <div *ngFor="let card of playerCards[playersIndexes[2]].cards">
                         <div  class="{{card.class}}" [style.transform]="'rotate('+(card.rotation)+'deg)'">
                             <div class="cardimg"></div>
                         </div>
                     </div>
                 </div>
             </div>
-            <div class="namefield">{{playerCards[playersIndexes[3]].name}}</div>
+            <div class="namefield">{{playerCards[playersIndexes[2]].name}}</div>
             <div class="stiche"></div>
         </div>
         <div id="innergamecontent">
             <div *ngIf="playersIndexes.length > 1" class="player3 hand">
                 <div class="cardholderwrap">
                     <div class="cardholder">
-                        <div *ngFor="let card of playerCards[playersIndexes[2]].cards">
+                        <div *ngFor="let card of playerCards[playersIndexes[1]].cards">
                             <div  class="{{card.class}}" [style.transform]="'rotate('+(card.rotation)+'deg)'">
                                 <div class="cardimg"></div>
                             </div>
@@ -67,7 +67,7 @@
                     </div>
                 </div>
             </div>
-            <div *ngIf="playersIndexes.length > 1" class="player1 hand">
+            <div *ngIf="playersIndexes.length > 3" class="player1 hand">
                 <div class="cardholderwrap">
                     <div class="cardholder">
                         <div *ngFor="let card of playerCards[playersIndexes[3]].cards">
