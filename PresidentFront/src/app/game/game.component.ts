@@ -83,6 +83,7 @@ export class GameComponent implements OnInit {
         this.playerCards = data;
         let hasBeenFounded = false;
         this.playersIndexes = [];
+        let order = 0;
         for(let i = 0; i<this.playerCards.length; i++)
         {
           this.playerCards[i].cards = [];
@@ -90,6 +91,7 @@ export class GameComponent implements OnInit {
           if(this.playerCards[i].playerId == this.playerId || hasBeenFounded == true)
           {
             this.playersIndexes.push(i);
+            this.playerCards[i].order = order++;
             console.log(this.playersIndexes);
             hasBeenFounded = true;
           }
@@ -102,6 +104,7 @@ export class GameComponent implements OnInit {
             break;
           }
           this.playersIndexes.push(i);
+          this.playerCards[i].order = order++;
           console.log(this.playersIndexes);
         }
         console.log(this.playersIndexes);
@@ -183,6 +186,7 @@ export class GameComponent implements OnInit {
         });
 
         this.playerCards[request.data.playerIndex].turn = true;
+        this.turnRotation = this.playerCards[request.data.playerIndex].order;
       }
 		});
 	}
