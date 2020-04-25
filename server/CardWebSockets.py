@@ -29,6 +29,7 @@ async def shuffleCards(session, playersConnected):
 	for player in playersConnected:
 		 await player['socket'].send(response)
 async def cardSelected(session, playersConnected, card):
+	global cardsSubscribers
 	card = Card.deleteCard(session, card['cardId'])
 	response = convertToJson({'operation' : 'delete', 'table' : 'Cards', 'data' : card})
 	cardsSubscribers = set(filter(removeClosedConnection, cardsSubscribers))
