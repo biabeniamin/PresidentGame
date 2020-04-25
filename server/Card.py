@@ -100,11 +100,11 @@ def updateCard(session, card):
 def deleteCard(session, cardId):
 	result = session.query(Card).filter(Card.cardId == cardId).first()
 	session.delete(result)
-	session.commit()
 	return result
 
 def deleteAllCards(session):
 	result = session.query(Card).delete()
+	session.commit()
 
 
 #API endpoints

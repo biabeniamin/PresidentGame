@@ -21,6 +21,8 @@ async def controlRequestReceived(websocket, session, request):
 	#Websockets endpoints
 	print("adsdas")
 	if request['operation'] == 'start':
+		#Card.deleteAllCards(session)
+		#Player.deleteAllPlayers(session)
 		await CardWebSockets.shuffleCards(session, playersConnected)
 		#response = convertToJson({'operation' : 'get', 'table' : 'Players', 'data' : playersConnected})
 		#await websocket.send(response)
@@ -47,6 +49,8 @@ async def requestReceived(websocket, path):
 		users.remove(websocket)
 	
 
+Card.deleteAllCards(session)
+Player.deleteAllPlayers(session)
 start_server = websockets.serve(requestReceived, 'localhost', 6789)
 asyncio.get_event_loop().run_until_complete(start_server)
 asyncio.get_event_loop().run_forever()

@@ -9,7 +9,6 @@ async def shuffleCards(session, playersConnected):
 	print(playersConnected)
 	print(len(playersConnected))
 
-	Card.deleteAllCards(session)
 
 	nrCards = 4 * 11
 	nrCardsPerPlayer = nrCards / len(playersConnected)
