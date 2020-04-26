@@ -6,26 +6,27 @@ from SqlAlchemyMain import session
 import CardWebSockets
 from SqlAlchemy import convertToJson, dict_as_obj
 import PlayerWebSockets
-from PlayerWebSockets import playersConnected
 import NotificationWebSockets
 import Player
 import Card
 
 turn = 0
+lastCard = 0
 
+playersConnected = []
 users = set()
 def connectedSuccessfullyEvent():
 	return json.dumps({'table': 'WebSockets', 'operation' : 'connectedSuccessfully'})
 
 async def updateTurn():
-	global turn
+	global turn, playersConnected
 	if turn >= len(playersConnected):
 		turn = 0
-	await PlayerWebSockets.setTurn(session, turn)
+	await PlayerWebSockets.setTurn(session, playersConnected, turn)
 
 async def controlRequestReceived(websocket, session, request):
 	global playersSubscribers
-	global turn
+	global turn, playersConnected
 	#Websockets endpoints
 	print("adsdas")
 	if request['operation'] == 'start':
@@ -36,12 +37,15 @@ async def controlRequestReceived(websocket, session, request):
 		await updateTurn()
 	elif request['operation'] == 'cardSelected':
 		await CardWebSockets.cardSelected(session, playersConnected, request['data'])
+		lastCard = request['data']
+		
 		turn = turn + 1
 		await updateTurn()
 async def requestReceived(websocket, path):
 	users.add(websocket)
 	websocket.authenticated = False
 	try:
+		print('client connected')
 		await websocket.send(connectedSuccessfullyEvent())
 		print('client connected')
 		async for requestJson in websocket:
@@ -50,7 +54,7 @@ async def requestReceived(websocket, path):
 			if request['table'] == 'Cards':
 				await CardWebSockets.requestReceived(websocket, session, request)
 			elif request['table'] == 'Players':
-				await PlayerWebSockets.requestReceived(websocket, session, request)
+				await PlayerWebSockets.requestReceived(websocket, session, playersConnected, request)
 			elif request['table'] == 'Notifications':
 				await NotificationWebSockets.requestReceived(websocket, session, request)
 			elif request['table'] == 'Control':
