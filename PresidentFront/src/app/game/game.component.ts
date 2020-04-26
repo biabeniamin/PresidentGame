@@ -17,7 +17,7 @@ export class GameComponent implements OnInit {
   public displayPopUp : boolean = true;
   public turnRotation : number = 3;
   public playerCards : any[];
-  public playerId = 81;
+  public playerId = 87;
   public playersIndexes = [];
   public lastCard = 0;
 
@@ -172,8 +172,16 @@ export class GameComponent implements OnInit {
   cardClicked(card)
   {
     console.log(card);
+    if(card.number <= this.lastCard)
+      return;
     this.webSockets.Send(new Request('cardSelected', 'Control', card));
 
+  }
+
+  turnPassed()
+  {
+    console.log("turn passed");
+    this.webSockets.Send(new Request('turnPassed', 'Control', ''));
   }
   
   ConnectToWebSockets()

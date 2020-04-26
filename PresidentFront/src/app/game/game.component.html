@@ -91,7 +91,11 @@
                     </div>
                 </div>
             </div>
-            <div class="namefield">{{playerCards[playersIndexes[0]].name}}</div>
+            <div class="namefield">
+                <div>{{playerCards[playersIndexes[0]].name}}</div>
+                <button (click)="turnPassed()">Pass</button>
+
+            </div>
             <div class="stiche"></div>
         </div>
 
