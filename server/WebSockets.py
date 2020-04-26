@@ -9,6 +9,7 @@ import PlayerWebSockets
 import NotificationWebSockets
 import Player
 import Card
+from itertools import chain
 
 turn = 0
 lastCard = 0
@@ -44,19 +45,19 @@ async def controlRequestReceived(websocket, session, request):
 			await player['socket'].send(response)
 		lastCard = request['data']
 		foundBigger = False
-		for player in playersConnected:
+		for i in chain(range(turn + 1, len(playersConnected)), range(0, turn)):
+			player = playersConnected[i]
 			if foundBigger:
 				break
 			for card in player['cards']:
 				if card.number > request['data']['number']:
 					foundBigger = True
 					print("gasita mai mare la ", card.playerId)
+					print("turn", turn, " ", i)
+					turn = i
+					await updateTurn()
 					break
 				
-		
-		if foundBigger == True:
-			turn = turn + 1
-			await updateTurn()
 async def requestReceived(websocket, path):
 	users.add(websocket)
 	websocket.authenticated = False
