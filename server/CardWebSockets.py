@@ -20,10 +20,11 @@ async def shuffleCards(session, playersConnected):
 	while len(cards) > 0:
 		print(len(cards))
 		card = cards[floor(random() * len(cards))]
-		card.playerId = playersConnected[playerIndex % len(playersConnected)]['player'].playerId
-		playerIndex = playerIndex + 1
-		Card.addCard(session, card)
+		card.playerId = playersConnected[playerIndex]['player'].playerId
+		playerIndex = (playerIndex + 1) % len(playersConnected)
+		newCard = Card.addCard(session, card)
 		cards.remove(card)
+		playersConnected[playerIndex]['cards'].append(newCard)
 	cards = Card.getCards(session)
 	response = convertToJson({'operation' : 'get', 'table' : 'Cards', 'data' : cards})
 	for player in playersConnected:

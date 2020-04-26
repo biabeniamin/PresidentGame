@@ -33,6 +33,7 @@ async def controlRequestReceived(websocket, session, request):
 		#Card.deleteAllCards(session)
 		#Player.deleteAllPlayers(session)
 		await CardWebSockets.shuffleCards(session, playersConnected)
+		print(playersConnected)
 		turn = 0
 		await updateTurn()
 	elif request['operation'] == 'cardSelected':
