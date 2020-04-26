@@ -14,6 +14,7 @@ export class CardService
 {
 	public cards : BehaviorSubject<Card[]>;
 	private webSocketsSubject : Subject<Message>;
+	public lastCard : Card = CardService.GetDefaultCard();
 	GetCards()
 	{
 		return this.http.get<Card[]>(ServerUrl.GetUrl()  + `Cards?cmd=get`).subscribe(data =>
@@ -28,7 +29,7 @@ export class CardService
 		cardId : 0,
 		playerId : 0,
 		type : 0,
-		number : 0,
+		number : 6,
 		creationTime : '2000-01-01 00:00:00',
 		player : PlayerService.GetDefaultPlayer()
 		};
@@ -141,7 +142,10 @@ export class CardService
 				{
 					if(items[i].cardId == request.data.cardId)
 					{
+						this.lastCard = items[i];
 						items.splice(i, 1);
+						console.log("last card is " + this.lastCard);
+						console.log(this.lastCard);
 						break;
 					}
 				}
