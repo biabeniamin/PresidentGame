@@ -31,7 +31,7 @@ async def requestReceived(websocket, session, playersConnected, request):
 			return
 		player = dict_as_obj(request['data'], Player.Player(), ['playerId', 'creationTime'])
 		player = Player.addPlayer(session, player)
-		playersConnected.append({'player':player, 'socket':websocket, 'cards' : []})
+		playersConnected.append({'player':player, 'socket':websocket, 'cards' : [], 'turnPassed' : False})
 
 		#inform player
 		response = convertToJson({'operation' : 'registered', 'table' : 'Game', 'data' : player})
