@@ -20,12 +20,19 @@ users = set()
 def connectedSuccessfullyEvent():
 	return json.dumps({'table': 'WebSockets', 'operation' : 'connectedSuccessfully'})
 
+async def resetTurnedPassed():
+	global playersConnected
+	for player in playersConnected:
+		player['turnPassed'] = False
 async def jumpToNextPlayer():
 	global playersConnected, turn, lastCard, indexPlayerLastCard
 	foundBigger = False
 	for i in chain(range(turn + 1, len(playersConnected)), range(0, turn)):
 		player = playersConnected[i]
 		if player['turnPassed'] == True:
+			print("jumped over", player['player'].playerId)
+			continue
+		if indexPlayerLastCard == i:
 			continue
 		if foundBigger:
 			break
@@ -33,17 +40,15 @@ async def jumpToNextPlayer():
 			if card.number > lastCard:
 				foundBigger = True
 				print("gasita mai mare la ", card.playerId)
-				print("turn", turn, " ", i)
-				if indexPlayerLastCard == i:
-					lastCard = 0
+				print("turn", turn, " ", i, " index last player ", indexPlayerLastCard)
 				turn = i
 				await updateTurn()
 				break
 	if foundBigger == False:
 		lastCard = 0
+		turn = indexPlayerLastCard
 		#reset passed turn
-		for player in playersConnected:
-			player['turnPassed'] = False
+		await resetTurnedPassed()
 		await updateTurn()
 
 async def updateTurn():
