@@ -38,10 +38,25 @@ async def controlRequestReceived(websocket, session, request):
 		await updateTurn()
 	elif request['operation'] == 'cardSelected':
 		await CardWebSockets.cardSelected(session, playersConnected, request['data'])
-		lastCard = request['data']
 		
-		turn = turn + 1
-		await updateTurn()
+		for player in playersConnected:
+			response = convertToJson({'operation' : 'get', 'table' : 'Cards2', 'data' : player['cards']})
+			await player['socket'].send(response)
+		lastCard = request['data']
+		foundBigger = False
+		for player in playersConnected:
+			if foundBigger:
+				break
+			for card in player['cards']:
+				if card.number > request['data']['number']:
+					foundBigger = True
+					print("gasita mai mare la ", card.playerId)
+					break
+				
+		
+		if foundBigger == True:
+			turn = turn + 1
+			await updateTurn()
 async def requestReceived(websocket, path):
 	users.add(websocket)
 	websocket.authenticated = False

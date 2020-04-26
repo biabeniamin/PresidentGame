@@ -21,16 +21,27 @@ async def shuffleCards(session, playersConnected):
 		print(len(cards))
 		card = cards[floor(random() * len(cards))]
 		card.playerId = playersConnected[playerIndex]['player'].playerId
-		playerIndex = (playerIndex + 1) % len(playersConnected)
 		newCard = Card.addCard(session, card)
-		cards.remove(card)
 		playersConnected[playerIndex]['cards'].append(newCard)
+		playerIndex = (playerIndex + 1) % len(playersConnected)
+		cards.remove(card)
 	cards = Card.getCards(session)
 	response = convertToJson({'operation' : 'get', 'table' : 'Cards', 'data' : cards})
 	for player in playersConnected:
 		 await player['socket'].send(response)
 async def cardSelected(session, playersConnected, card):
 	global cardsSubscribers
+	for player in playersConnected:
+		if player['player'].playerId == card['playerId']:
+			print("player gasit",len(player['cards']), range(0, 15))
+			for i in range(0, len(player['cards'])):
+				print(i)
+				cardP = player['cards'][i]
+				if cardP.cardId == card['cardId']:
+					print("carte gasita")
+					player['cards'].remove(cardP)
+					break
+			
 	card = Card.deleteCard(session, card['cardId'])
 	response = convertToJson({'operation' : 'delete', 'table' : 'Cards', 'data' : card})
 	cardsSubscribers = set(filter(removeClosedConnection, cardsSubscribers))
