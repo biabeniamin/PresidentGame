@@ -14,7 +14,7 @@ import { Subject } from 'rxjs';
 export class GameComponent implements OnInit {
 
   @ViewChild('popUpWindowContainer2', { static: false }) myDiv: any;
-  public displayPopUp : boolean = true;
+  public displayPopUp : boolean = false;
   public turnRotation : number = 3;
   public playerCards : any[];
   public playerId = 87;
@@ -138,7 +138,7 @@ export class GameComponent implements OnInit {
         for(let j = 0; j<this.playerCards.length; j++)
         {
           let range = 136;
-          range=Math.min(range, this.playerCards.length * 28)
+          range=Math.min(range, this.playerCards[j].cards.length * 28)
 
           for(let i = 0; i<this.playerCards[j].cards.length; i++)
           {
