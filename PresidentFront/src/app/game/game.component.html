@@ -85,7 +85,7 @@
             <div class="cardholderwrap">
                 <div class="cardholder">
                     <div *ngFor="let card of playerCards[playersIndexes[0]].cards">
-                        <div (click)="cardClicked(card)" class="{{card.class}}" [style.transform]="'rotate('+(card.rotation)+'deg)'">
+                        <div (click)="cardClicked(card)" class="{{card.class}} {{lastCard >= card.number? 'unselectable' : ''}}" [style.transform]="'rotate('+(card.rotation)+'deg)'">
                             <div class="cardimg"></div>
                         </div>
                     </div>
