@@ -20,14 +20,15 @@ def connectedSuccessfullyEvent():
 	return json.dumps({'table': 'WebSockets', 'operation' : 'connectedSuccessfully'})
 
 async def updateTurn():
-	global turn, playersConnected
+	global turn, playersConnected, lastCard
 	if turn >= len(playersConnected):
 		turn = 0
-	await PlayerWebSockets.setTurn(session, playersConnected, turn)
+	print("set turn to ", turn, " and last card to ", lastCard)
+	await PlayerWebSockets.setTurn(session, playersConnected, turn, lastCard)
 
 async def controlRequestReceived(websocket, session, request):
 	global playersSubscribers
-	global turn, playersConnected
+	global turn, playersConnected, lastCard
 	#Websockets endpoints
 	print("adsdas")
 	if request['operation'] == 'start':
@@ -36,6 +37,7 @@ async def controlRequestReceived(websocket, session, request):
 		await CardWebSockets.shuffleCards(session, playersConnected)
 		print(playersConnected)
 		turn = 0
+		lastCard = 0
 		await updateTurn()
 	elif request['operation'] == 'cardSelected':
 		await CardWebSockets.cardSelected(session, playersConnected, request['data'])
@@ -55,8 +57,12 @@ async def controlRequestReceived(websocket, session, request):
 					print("gasita mai mare la ", card.playerId)
 					print("turn", turn, " ", i)
 					turn = i
+					lastCard = request['data']['number']
 					await updateTurn()
 					break
+		if foundBigger == False:
+			lastCard = 0
+			await updateTurn()
 				
 async def requestReceived(websocket, path):
 	users.add(websocket)
