@@ -19,6 +19,25 @@ users = set()
 def connectedSuccessfullyEvent():
 	return json.dumps({'table': 'WebSockets', 'operation' : 'connectedSuccessfully'})
 
+async def jumpToNextPlayer():
+	global playersConnected, turn, lastCard
+	foundBigger = False
+	for i in chain(range(turn + 1, len(playersConnected)), range(0, turn)):
+		player = playersConnected[i]
+		if foundBigger:
+			break
+		for card in player['cards']:
+			if card.number > lastCard:
+				foundBigger = True
+				print("gasita mai mare la ", card.playerId)
+				print("turn", turn, " ", i)
+				turn = i
+				await updateTurn()
+				break
+	if foundBigger == False:
+		lastCard = 0
+		await updateTurn()
+
 async def updateTurn():
 	global turn, playersConnected, lastCard
 	if turn >= len(playersConnected):
@@ -42,27 +61,10 @@ async def controlRequestReceived(websocket, session, request):
 	elif request['operation'] == 'cardSelected':
 		await CardWebSockets.cardSelected(session, playersConnected, request['data'])
 		
-		for player in playersConnected:
-			response = convertToJson({'operation' : 'get', 'table' : 'Cards2', 'data' : player['cards']})
-			await player['socket'].send(response)
-		lastCard = request['data']
-		foundBigger = False
-		for i in chain(range(turn + 1, len(playersConnected)), range(0, turn)):
-			player = playersConnected[i]
-			if foundBigger:
-				break
-			for card in player['cards']:
-				if card.number > request['data']['number']:
-					foundBigger = True
-					print("gasita mai mare la ", card.playerId)
-					print("turn", turn, " ", i)
-					turn = i
-					lastCard = request['data']['number']
-					await updateTurn()
-					break
-		if foundBigger == False:
-			lastCard = 0
-			await updateTurn()
+		lastCard = request['data']['number']
+		await jumpToNextPlayer()
+	elif request['operation'] == 'turnPassed':
+		await jumpToNextPlayer()
 				
 async def requestReceived(websocket, path):
 	users.add(websocket)
