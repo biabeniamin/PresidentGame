@@ -51,6 +51,16 @@ async def jumpToNextPlayer():
 		await resetTurnedPassed()
 		await updateTurn()
 
+def isGameOver():
+	global playersConnected
+	remainedPlayers = 0
+	for player in playersConnected:
+		if len(player['cards']) > 0:
+			remainedPlayers = remainedPlayers + 1
+	if remainedPlayers < 2:
+		return True
+	return False
+
 async def updateTurn():
 	global turn, playersConnected, lastCard
 	if turn >= len(playersConnected):
@@ -73,6 +83,9 @@ async def controlRequestReceived(websocket, session, request):
 		await updateTurn()
 	elif request['operation'] == 'cardSelected':
 		await CardWebSockets.cardSelected(session, playersConnected, request['data'])
+		if isGameOver():
+			print("game over")
+			return
 	
 		for i in range(0, len(playersConnected)):
 			if playersConnected[i]['socket'] == websocket:
