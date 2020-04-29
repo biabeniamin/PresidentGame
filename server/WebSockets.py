@@ -10,6 +10,7 @@ import NotificationWebSockets
 import Player
 import Card
 from itertools import chain
+import time
 
 turn = 0
 lastCard = 0
@@ -72,6 +73,12 @@ async def updateTurn():
 	print("set turn to ", turn, " and last card to ", lastCard)
 	await PlayerWebSockets.setTurn(session, playersConnected, turn, lastCard)
 
+async def changePresidentCards():
+	global playersConnected
+	print("changing cards between players")
+	card = playersConnected[0]['cards']
+	await CardWebSockets.changeCards(session, playersConnected, playersConnected[0]['player'].playerId,playersConnected[1]['player'].playerId)
+	playersConnected[0]['cards'],playersConnected[1]['cards']=playersConnected[1]['cards'],playersConnected[0]['cards']
 async def startGame():
 	global playersSubscribers, turn, playersConnected, lastCard, indexPlayerLastCard
 	await CardWebSockets.shuffleCards(session, playersConnected)
@@ -110,7 +117,9 @@ async def controlRequestReceived(websocket, session, request):
 		if gameOver == True:
 			for player in playersConnected:
 				print(player['player'].name, " - ", player['rank'])
-			return await startGame()
+			await startGame()
+			time.sleep(10)
+			return await changePresidentCards()
 		lastCard = request['data']['number']
 		await jumpToNextPlayer()
 	elif request['operation'] == 'turnPassed':
