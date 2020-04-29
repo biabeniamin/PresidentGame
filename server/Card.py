@@ -74,6 +74,10 @@ def getCardsByCardId(session, cardId):
 	result = completePlayers(session, result)
 	return result
 
+def getCardsByPlayerId(session, playerId):
+	result = session.query(Card).filter(Card.playerId == playerId).all()
+	result = completePlayers(session, result)
+	return result
 
 #add funtion
 def addCard(session, card):
