@@ -65,6 +65,9 @@ async def updateTurn():
 	global turn, playersConnected, lastCard
 	if turn >= len(playersConnected):
 		turn = 0
+	if len(playersConnected[turn]['cards']) < 1:
+		turn = turn + 1
+		return await updateTurn()
 	print("set turn to ", turn, " and last card to ", lastCard)
 	await PlayerWebSockets.setTurn(session, playersConnected, turn, lastCard)
 
