@@ -9,11 +9,8 @@ async def shuffleCards(session, playersConnected):
 	print(playersConnected)
 	print(len(playersConnected))
 
-
-	nrCards = 4 * 11
-	nrCardsPerPlayer = nrCards / len(playersConnected)
 	cards=[]
-	for i in range(4, 15):
+	for i in range(12, 15):
 		for j in range(0, 4):
 			cards.append(Card.Card(type=j, number=i, playerId=0))
 	playerIndex = 0

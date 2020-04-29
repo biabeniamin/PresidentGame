@@ -14,6 +14,7 @@ from itertools import chain
 turn = 0
 lastCard = 0
 indexPlayerLastCard = 0
+finishedPlayers = 0
 
 playersConnected = []
 users = set()
@@ -81,7 +82,7 @@ async def startGame():
 
 async def controlRequestReceived(websocket, session, request):
 	global playersSubscribers
-	global turn, playersConnected, lastCard, indexPlayerLastCard
+	global turn, playersConnected, lastCard, indexPlayerLastCard, finishedPlayers
 	#Websockets endpoints
 	print("adsdas")
 	if request['operation'] == 'start':
@@ -90,13 +91,26 @@ async def controlRequestReceived(websocket, session, request):
 		#Player.deleteAllPlayers(session)
 	elif request['operation'] == 'cardSelected':
 		await CardWebSockets.cardSelected(session, playersConnected, request['data'])
+		gameOver = False
 		if isGameOver():
 			print("game over")
-			return await startGame()
-	
+			gameOver = True
 		for i in range(0, len(playersConnected)):
-			if playersConnected[i]['socket'] == websocket:
+			player = playersConnected[i]
+			if player['socket'] == websocket:
 				indexPlayerLastCard = i
+			print(player)
+			if len(player['cards']) < 1 and player['rank'] == -1:
+				player['rank'] = finishedPlayers
+				finishedPlayers = finishedPlayers + 1
+			elif len(player['cards']) > 0 and gameOver == True:
+				player['rank'] = finishedPlayers
+				print("setat")
+
+		if gameOver == True:
+			for player in playersConnected:
+				print(player['player'].name, " - ", player['rank'])
+			return await startGame()
 		lastCard = request['data']['number']
 		await jumpToNextPlayer()
 	elif request['operation'] == 'turnPassed':
