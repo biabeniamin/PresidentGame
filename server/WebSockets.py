@@ -71,24 +71,28 @@ async def updateTurn():
 	print("set turn to ", turn, " and last card to ", lastCard)
 	await PlayerWebSockets.setTurn(session, playersConnected, turn, lastCard)
 
+async def startGame():
+	global playersSubscribers, turn, playersConnected, lastCard, indexPlayerLastCard
+	await CardWebSockets.shuffleCards(session, playersConnected)
+	print(playersConnected)
+	turn = 0
+	lastCard = 0
+	await updateTurn()
+
 async def controlRequestReceived(websocket, session, request):
 	global playersSubscribers
 	global turn, playersConnected, lastCard, indexPlayerLastCard
 	#Websockets endpoints
 	print("adsdas")
 	if request['operation'] == 'start':
+		await startGame()
 		#Card.deleteAllCards(session)
 		#Player.deleteAllPlayers(session)
-		await CardWebSockets.shuffleCards(session, playersConnected)
-		print(playersConnected)
-		turn = 0
-		lastCard = 0
-		await updateTurn()
 	elif request['operation'] == 'cardSelected':
 		await CardWebSockets.cardSelected(session, playersConnected, request['data'])
 		if isGameOver():
 			print("game over")
-			return
+			return await startGame()
 	
 		for i in range(0, len(playersConnected)):
 			if playersConnected[i]['socket'] == websocket:
