@@ -27,19 +27,19 @@ async def shuffleCards(session, playersConnected):
 	for player in playersConnected:
 		 await player['socket'].send(response)
 
-async def changeCards(session, playersConnected, winnerId, looserId, numberCards):
-	winnerCards = Card.getCardsByPlayerIdSorted(session, winnerId)
-	looserCards = Card.getCardsByPlayerIdSorted(session, looserId)
+async def changeCards(session, playersConnected, winner, looser, numberCards):
+	winnerCards = Card.getCardsByPlayerIdSorted(session, winner["player"].playerId)
+	looserCards = Card.getCardsByPlayerIdSorted(session, looser["player"].playerId)
 	print(winnerCards)
 	for card in winnerCards:
 		print(card.number)
 	for index in range(0, numberCards):
 		card = winnerCards[index]
-		card.playerId = looserId
+		card.playerId = looser["player"].playerId
 		Card.updateCard(session, card)
 	for index in range(len(looserCards) - numberCards, len(looserCards)):
 		card = looserCards[index]
-		card.playerId = winnerId
+		card.playerId = winner["player"].playerId
 		Card.updateCard(session, card)
 	cards = Card.getCards(session)
 	response = convertToJson({'operation' : 'get', 'table' : 'Cards', 'data' : cards})
