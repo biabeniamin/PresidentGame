@@ -35,12 +35,16 @@ async def changeCards(session, playersConnected, winner, looser, numberCards):
 		print(card.number)
 	for index in range(0, numberCards):
 		card = winnerCards[index]
+		winner["cards"].remove(card)
 		card.playerId = looser["player"].playerId
-		Card.updateCard(session, card)
+		card = Card.updateCard(session, card)
+		looser["cards"].append(card)
 	for index in range(len(looserCards) - numberCards, len(looserCards)):
 		card = looserCards[index]
+		looser["cards"].remove(card)
 		card.playerId = winner["player"].playerId
-		Card.updateCard(session, card)
+		card = Card.updateCard(session, card)
+		winner["cards"].append(card)
 	cards = Card.getCards(session)
 	response = convertToJson({'operation' : 'get', 'table' : 'Cards', 'data' : cards})
 	for player in playersConnected:

@@ -78,6 +78,8 @@ async def changePresidentCards():
 	print("changing cards between players")
 	card = playersConnected[0]['cards']
 	await CardWebSockets.changeCards(session, playersConnected, playersConnected[0],playersConnected[1], 2)
+	for card in playersConnected[0]["cards"]:
+		print( "winner",card.number)
 	#playersConnected[0]['cards'],playersConnected[1]['cards']=playersConnected[1]['cards'],playersConnected[0]['cards']
 async def startGame():
 	global playersSubscribers, turn, playersConnected, lastCard, indexPlayerLastCard
