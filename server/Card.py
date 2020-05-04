@@ -79,6 +79,10 @@ def getCardsByPlayerId(session, playerId):
 	result = completePlayers(session, result)
 	return result
 
+def getCardsByPlayerIdSorted(session, playerId):
+	result = session.query(Card).filter(Card.playerId == playerId).order_by(Card.number).all()
+	result = completePlayers(session, result)
+	return result
 #add funtion
 def addCard(session, card):
 	card.creationTime = datetime.datetime.utcnow()
