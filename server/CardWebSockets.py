@@ -51,24 +51,26 @@ async def changeCards(session, playersConnected, looser, winner, numberCards):
 	for player in playersConnected:
 		 await player['socket'].send(response)
 
-async def cardSelected(session, playersConnected, card):
+async def cardSelected(session, playersConnected, data):
 	global cardsSubscribers
 	for player in playersConnected:
-		if player['player'].playerId == card['playerId']:
+		if player['player'].playerId == data["cards"][0]['playerId']:
 			print("player gasit",len(player['cards']), range(0, 15))
-			for i in range(0, len(player['cards'])):
-				print(i)
-				cardP = player['cards'][i]
-				if cardP.cardId == card['cardId']:
-					print("carte gasita")
-					player['cards'].remove(cardP)
-					break
+			for card in data["cards"]:
+				for i in range(0, len(player['cards'])):
+					print(i)
+					cardP = player['cards'][i]
+					if cardP.cardId == card['cardId']:
+						print("carte gasita")
+						player['cards'].remove(cardP)
+						break
 			
-	card = Card.deleteCard(session, card['cardId'])
-	response = convertToJson({'operation' : 'delete', 'table' : 'Cards', 'data' : card})
-	cardsSubscribers = set(filter(removeClosedConnection, cardsSubscribers))
-	for subscriber in cardsSubscribers:
-		 await subscriber.send(response)
+	for card in data["cards"]:
+		card = Card.deleteCard(session, card['cardId'])
+		response = convertToJson({'operation' : 'delete', 'table' : 'Cards', 'data' : card})
+		cardsSubscribers = set(filter(removeClosedConnection, cardsSubscribers))
+		for subscriber in cardsSubscribers:
+			 await subscriber.send(response)
 async def requestReceived(websocket, session, request):
 	global cardsSubscribers
 	#Websockets endpoints
