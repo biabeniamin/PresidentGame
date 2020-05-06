@@ -260,6 +260,7 @@ export class GameComponent implements OnInit {
         this.playerCards[request.data.playerIndex].turn = true;
         this.turnRotation = this.playerCards[request.data.playerIndex].order;
         this.lastCard = request.data.lastCard;
+        this.numberOfCardsSelected = request.data.nrCards;
         console.log("set last card to" + this.lastCard);
 
         this.updateCardsClickable()
