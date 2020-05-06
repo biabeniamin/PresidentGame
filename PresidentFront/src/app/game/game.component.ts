@@ -193,6 +193,16 @@ export class GameComponent implements OnInit {
     this.numberOfCardsSelected = option;
     console.log("cards changed to "+ this.numberOfCardsSelected);
     console.log(option);
+
+    console.log(this.playerCards[this.playersIndexes[0]]);
+    let values ={};
+    this.playerCards[this.playersIndexes[0]].cards.forEach(card => {
+      if(card.number in values)
+        values[card.number]++;
+      else
+        values[card.number] = 1;
+    });
+    console.log(values);
   }
 
   ConnectToWebSockets()
