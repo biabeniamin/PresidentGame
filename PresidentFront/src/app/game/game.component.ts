@@ -150,6 +150,7 @@ export class GameComponent implements OnInit {
             card.class += " "+this.getCardNumberClass(card.number);
           }
         }
+        this.updateCardsClickable();
         console.log(this.playerCards);
       })
 
@@ -183,6 +184,13 @@ export class GameComponent implements OnInit {
     console.log(card.number + " " + this.lastCard);
     return values[card.number] >= this.numberOfCardsSelected && card.number > this.lastCard;
     
+  }
+
+  updateCardsClickable()
+  {
+    this.playerCards[this.playersIndexes[0]].cards.forEach(card => {
+      card.isClickable = this.isCardClickable(card);
+    });
   }
 
   cardClicked(card)
@@ -223,9 +231,7 @@ export class GameComponent implements OnInit {
 
     
 
-    this.playerCards[this.playersIndexes[0]].cards.forEach(card => {
-      card.isClickable = this.isCardClickable(card);
-    });
+    this.updateCardsClickable();
     console.log(this.playerCards[this.playersIndexes[0]].cards);
   }
 
@@ -256,9 +262,7 @@ export class GameComponent implements OnInit {
         this.lastCard = request.data.lastCard;
         console.log("set last card to" + this.lastCard);
 
-        this.playerCards[this.playersIndexes[0]].cards.forEach(card => {
-          card.isClickable = this.isCardClickable(card);
-        });
+        this.updateCardsClickable()
       }
 		});
 	}
