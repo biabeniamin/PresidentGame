@@ -14,7 +14,7 @@ import { Subject } from 'rxjs';
 export class GameComponent implements OnInit {
 
   @ViewChild('popUpWindowContainer2', { static: false }) myDiv: any;
-  public displayPopUp : boolean = false;
+  public displayPopUp : boolean = true;
   public turnRotation : number = 0;
   public playerCards : any[];
   public playerId = 317;
@@ -191,7 +191,7 @@ export class GameComponent implements OnInit {
       }
     }
     console.log(cards);
-    this.webSockets.Send(new Request('cardSelected', 'Control', [cards]));
+    this.webSockets.Send(new Request('cardSelected', 'Control', {"cards" : cards, "numberOfCards" : this.numberOfCardsSelected}));
 
   }
 
