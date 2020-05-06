@@ -76,13 +76,13 @@ async def updateTurn():
 async def changePresidentCards():
 	global playersConnected
 	print("changing cards between players")
-	sortedPlayers = []
-	for player in playersConnected:
-		sortedPlayers.append(player)
-	sortedPlayers = sorted(sortedPlayers, key=lambda x: x["rank"])
+	sortedPlayers = sorted(playersConnected, key=lambda x: x["rank"])
 	for card in sortedPlayers:
 		print( "sork",card["rank"])
-	await CardWebSockets.changeCards(session, playersConnected, playersConnected[0],playersConnected[1], 2)
+	if len(sortedPlayers) > 1:
+		await CardWebSockets.changeCards(session, playersConnected, sortedPlayers[len(sortedPlayers) - 1],sortedPlayers[0], 2)
+	if len(sortedPlayers) > 3:
+		await CardWebSockets.changeCards(session, playersConnected, sortedPlayers[len(sortedPlayers) - 2],sortedPlayers[1], 1)
 	for card in playersConnected[0]["cards"]:
 		print( "winner",card.number)
 	#playersConnected[0]['cards'],playersConnected[1]['cards']=playersConnected[1]['cards'],playersConnected[0]['cards']

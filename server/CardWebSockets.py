@@ -27,9 +27,10 @@ async def shuffleCards(session, playersConnected):
 	for player in playersConnected:
 		 await player['socket'].send(response)
 
-async def changeCards(session, playersConnected, winner, looser, numberCards):
+async def changeCards(session, playersConnected, looser, winner, numberCards):
 	winnerCards = Card.getCardsByPlayerIdSorted(session, winner["player"].playerId)
 	looserCards = Card.getCardsByPlayerIdSorted(session, looser["player"].playerId)
+	print("change ", numberCards, "between winner ", winner["player"].name, "and ", looser["player"].name)
 	print(winnerCards)
 	for card in winnerCards:
 		print(card.number)
