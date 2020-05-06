@@ -14,10 +14,10 @@ import { Subject } from 'rxjs';
 export class GameComponent implements OnInit {
 
   @ViewChild('popUpWindowContainer2', { static: false }) myDiv: any;
-  public displayPopUp : boolean = true;
+  public displayPopUp : boolean = false;
   public turnRotation : number = 0;
   public playerCards : any[];
-  public playerId = 317;
+  public playerId = 332;
   public playersIndexes = [];
   public lastCard = 0;
   public numberOfCardsSelected = 1;
@@ -148,7 +148,7 @@ export class GameComponent implements OnInit {
             card.class = "card";
             card.class += " "+this.getCardTypeClass(card.type);
             card.class += " "+this.getCardNumberClass(card.number);
-            card.isClickable = this.lastCard < card.number;
+            card.isClickable = this.isCardClickable(card);
           }
         }
         console.log(this.playerCards);
@@ -169,6 +169,20 @@ export class GameComponent implements OnInit {
     player.type = 2;
 		console.log(player);
 		this.playerService.AddPlayer(player);
+  }
+
+  isCardClickable(card)
+  {
+    console.log(this.playerCards[this.playersIndexes[0]]);
+    let values ={};
+    this.playerCards[this.playersIndexes[0]].cards.forEach(card => {
+      if(card.number in values)
+        values[card.number]++;
+      else
+        values[card.number] = 1;
+    });
+    return values[card.number] >= this.numberOfCardsSelected && card.number > this.lastCard;
+    
   }
 
   cardClicked(card)
@@ -207,20 +221,11 @@ export class GameComponent implements OnInit {
     console.log("cards changed to "+ this.numberOfCardsSelected);
     console.log(option);
 
-    console.log(this.playerCards[this.playersIndexes[0]]);
-    let values ={};
-    this.playerCards[this.playersIndexes[0]].cards.forEach(card => {
-      if(card.number in values)
-        values[card.number]++;
-      else
-        values[card.number] = 1;
-    });
+    
 
     this.playerCards[this.playersIndexes[0]].cards.forEach(card => {
-      card.isClickable = values[card.number] >= this.numberOfCardsSelected;
+      card.isClickable = this.isCardClickable(card);
     });
-      
-    console.log(values);
     console.log(this.playerCards[this.playersIndexes[0]].cards);
   }
 
