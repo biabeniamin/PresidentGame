@@ -17,7 +17,7 @@ export class GameComponent implements OnInit {
   public displayPopUp : boolean = false;
   public turnRotation : number = 3;
   public playerCards : any[];
-  public playerId = 317;
+  public playerId = 316;
   public playersIndexes = [];
   public lastCard = 0;
   public numberOfCardsSelected = 3;
@@ -148,7 +148,7 @@ export class GameComponent implements OnInit {
             card.class = "card";
             card.class += " "+this.getCardTypeClass(card.type);
             card.class += " "+this.getCardNumberClass(card.number);
-            card.clickable = this.lastCard < card.number;
+            card.isClickable = this.lastCard < card.number;
           }
         }
         console.log(this.playerCards);
@@ -202,7 +202,13 @@ export class GameComponent implements OnInit {
       else
         values[card.number] = 1;
     });
+
+    this.playerCards[this.playersIndexes[0]].cards.forEach(card => {
+      card.isClickable = values[card.number] >= this.numberOfCardsSelected;
+    });
+      
     console.log(values);
+    console.log(this.playerCards[this.playersIndexes[0]].cards);
   }
 
   ConnectToWebSockets()
