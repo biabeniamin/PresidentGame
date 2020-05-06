@@ -14,7 +14,7 @@ import { Subject } from 'rxjs';
 export class GameComponent implements OnInit {
 
   @ViewChild('popUpWindowContainer2', { static: false }) myDiv: any;
-  public displayPopUp : boolean = false;
+  public displayPopUp : boolean = true;
   public turnRotation : number = 0;
   public playerCards : any[];
   public playerId = 332;
@@ -148,7 +148,6 @@ export class GameComponent implements OnInit {
             card.class = "card";
             card.class += " "+this.getCardTypeClass(card.type);
             card.class += " "+this.getCardNumberClass(card.number);
-            card.isClickable = this.isCardClickable(card);
           }
         }
         console.log(this.playerCards);
@@ -181,6 +180,7 @@ export class GameComponent implements OnInit {
       else
         values[card.number] = 1;
     });
+    console.log(card.number + " " + this.lastCard);
     return values[card.number] >= this.numberOfCardsSelected && card.number > this.lastCard;
     
   }
@@ -255,6 +255,10 @@ export class GameComponent implements OnInit {
         this.turnRotation = this.playerCards[request.data.playerIndex].order;
         this.lastCard = request.data.lastCard;
         console.log("set last card to" + this.lastCard);
+
+        this.playerCards[this.playersIndexes[0]].cards.forEach(card => {
+          card.isClickable = this.isCardClickable(card);
+        });
       }
 		});
 	}

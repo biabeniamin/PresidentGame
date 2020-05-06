@@ -138,6 +138,7 @@ export class CardService
 			else if(request.operation == 'delete')
 			{
 				let items = this.cards.getValue()
+				console.log(items);
 				for(let i = 0; i < items.length; i++)
 				{
 					if(items[i].cardId == request.data.cardId)
@@ -149,6 +150,7 @@ export class CardService
 						break;
 					}
 				}
+				console.log(items);
 				this.cards.next(items);
 			}
 		
