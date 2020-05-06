@@ -93,7 +93,7 @@
             </div>
             <div class="namefield">
                 <div>{{playerCards[playersIndexes[0]].name}}</div>
-                <select (change)=numberCardsChanged()>
+                <select (change)=numberCardsChanged($event.target.value) [value]="numberOfCardsSelected">
                     <option value="1">1</option>
                     <option value="2">2</option>
                     <option value="3">3</option>

@@ -20,6 +20,7 @@ export class GameComponent implements OnInit {
   public playerId = 316;
   public playersIndexes = [];
   public lastCard = 0;
+  public numberOfCardsSelected = 3;
 
   private webSocketsSubject : Subject<any>;
 
@@ -186,9 +187,11 @@ export class GameComponent implements OnInit {
     this.webSockets.Send(new Request('turnPassed', 'Control', ''));
   }
   
-  numberCardsChanged()
+  numberCardsChanged(option)
   {
-    console.log("cards changed");
+    this.numberOfCardsSelected = option;
+    console.log("cards changed to "+ this.numberOfCardsSelected);
+    console.log(option);
   }
 
   ConnectToWebSockets()
