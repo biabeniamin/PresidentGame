@@ -17,7 +17,7 @@ export class GameComponent implements OnInit {
   public displayPopUp : boolean = false;
   public turnRotation : number = 3;
   public playerCards : any[];
-  public playerId = 316;
+  public playerId = 317;
   public playersIndexes = [];
   public lastCard = 0;
   public numberOfCardsSelected = 3;
@@ -148,6 +148,7 @@ export class GameComponent implements OnInit {
             card.class = "card";
             card.class += " "+this.getCardTypeClass(card.type);
             card.class += " "+this.getCardNumberClass(card.number);
+            card.clickable = this.lastCard < card.number;
           }
         }
         console.log(this.playerCards);
