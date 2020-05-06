@@ -113,13 +113,19 @@ async def controlRequestReceived(websocket, session, request):
 			player = playersConnected[i]
 			if player['socket'] == websocket:
 				indexPlayerLastCard = i
-			print(player)
+			print('before',player)
 			if len(player['cards']) < 1 and player['rank'] == -1:
 				player['rank'] = finishedPlayers
 				finishedPlayers = finishedPlayers + 1
-			elif len(player['cards']) > 0 and gameOver == True:
-				player['rank'] = finishedPlayers
-				print("setat")
+			print('after',player)
+		if gameOver:
+			for i in range(0, len(playersConnected)):
+				player = playersConnected[i]
+				print('before',player)
+				if len(player['cards']) > 0:
+					player['rank'] = finishedPlayers
+					print("setat")
+				print('after',player)
 
 		if gameOver == True:
 			for player in playersConnected:
