@@ -174,6 +174,8 @@ export class GameComponent implements OnInit {
     console.log(card);
     if(card.number <= this.lastCard)
       return;
+    if(this.turnRotation != 0)
+      return;
     this.webSockets.Send(new Request('cardSelected', 'Control', card));
 
   }
