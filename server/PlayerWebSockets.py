@@ -3,8 +3,8 @@ from SqlAlchemy import convertToJson, dict_as_obj
 from WebSocketsHelpers import checkArguments, removeClosedConnection
 import Player
 playersSubscribers = set()
-async def setTurn(session, playersConnected, turn, lastCard):
-	turnMessage = convertToJson({'operation' : 'turn', 'table' : 'Game', 'data' : {'playerIndex' : turn, 'lastCard' : lastCard}})
+async def setTurn(session, playersConnected, turn, lastCard, nrCardsPerTurn):
+	turnMessage = convertToJson({'operation' : 'turn', 'table' : 'Game', 'data' : {'playerIndex' : turn, 'lastCard' : lastCard, "nrCards" : nrCardsPerTurn}})
 	for player in playersConnected:
 		await player['socket'].send(turnMessage)
 async def requestReceived(websocket, session, playersConnected, request):
