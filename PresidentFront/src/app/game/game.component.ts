@@ -15,12 +15,12 @@ export class GameComponent implements OnInit {
 
   @ViewChild('popUpWindowContainer2', { static: false }) myDiv: any;
   public displayPopUp : boolean = false;
-  public turnRotation : number = 3;
+  public turnRotation : number = 0;
   public playerCards : any[];
-  public playerId = 316;
+  public playerId = 317;
   public playersIndexes = [];
   public lastCard = 0;
-  public numberOfCardsSelected = 3;
+  public numberOfCardsSelected = 1;
 
   private webSocketsSubject : Subject<any>;
 
@@ -178,7 +178,20 @@ export class GameComponent implements OnInit {
       return;
     if(this.turnRotation != 0)
       return;
-    this.webSockets.Send(new Request('cardSelected', 'Control', card));
+    let cards = [];
+    let cardsAdded = 0;
+    for(let i = 0; i< this.playerCards[this.playersIndexes[0]].cards.length;i++)
+    {
+      let element= this.playerCards[this.playersIndexes[0]].cards[i];
+      if(element.number == card.number)
+      {
+        cards.push(element);
+        if(++cardsAdded >= this.numberOfCardsSelected)
+          break;
+      }
+    }
+    console.log(cards);
+    this.webSockets.Send(new Request('cardSelected', 'Control', [cards]));
 
   }
 
