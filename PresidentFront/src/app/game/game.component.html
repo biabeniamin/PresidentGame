@@ -93,6 +93,12 @@
             </div>
             <div class="namefield">
                 <div>{{playerCards[playersIndexes[0]].name}}</div>
+                <select (change)=numberCardsChanged()>
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                </select><br>
                 <button (click)="turnPassed()">Pass</button>
 
             </div>

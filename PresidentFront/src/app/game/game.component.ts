@@ -14,10 +14,10 @@ import { Subject } from 'rxjs';
 export class GameComponent implements OnInit {
 
   @ViewChild('popUpWindowContainer2', { static: false }) myDiv: any;
-  public displayPopUp : boolean = true;
+  public displayPopUp : boolean = false;
   public turnRotation : number = 3;
   public playerCards : any[];
-  public playerId = 87;
+  public playerId = 316;
   public playersIndexes = [];
   public lastCard = 0;
 
@@ -186,6 +186,11 @@ export class GameComponent implements OnInit {
     this.webSockets.Send(new Request('turnPassed', 'Control', ''));
   }
   
+  numberCardsChanged()
+  {
+    console.log("cards changed");
+  }
+
   ConnectToWebSockets()
 	{
 		this.webSocketsSubject = this.webSockets.getSubject('Game');
