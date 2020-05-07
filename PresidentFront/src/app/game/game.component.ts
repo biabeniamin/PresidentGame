@@ -219,6 +219,8 @@ export class GameComponent implements OnInit {
 
   turnPassed()
   {
+    if(this.turnRotation != 0)
+      return;
     console.log("turn passed");
     this.webSockets.Send(new Request('turnPassed', 'Control', ''));
   }
