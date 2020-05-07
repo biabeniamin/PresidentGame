@@ -16,7 +16,7 @@
             <div class="cardholderwrap">
                 <div class="cardholder">
                     <div *ngFor="let card of playerCards[playersIndexes[2]].cards">
-                        <div  class="{{card.class}}" [style.transform]="'rotate('+(card.rotation)+'deg)'">
+                        <div  class="card" [style.transform]="'rotate('+(card.rotation)+'deg)'">
                             <div class="cardimg"></div>
                         </div>
                     </div>
@@ -30,7 +30,7 @@
                 <div class="cardholderwrap">
                     <div class="cardholder">
                         <div *ngFor="let card of playerCards[playersIndexes[1]].cards">
-                            <div  class="{{card.class}}" [style.transform]="'rotate('+(card.rotation)+'deg)'">
+                            <div  class="card" [style.transform]="'rotate('+(card.rotation)+'deg)'">
                                 <div class="cardimg"></div>
                             </div>
                         </div>
@@ -71,7 +71,7 @@
                 <div class="cardholderwrap">
                     <div class="cardholder">
                         <div *ngFor="let card of playerCards[playersIndexes[3]].cards">
-                            <div  class="{{card.class}}" [style.transform]="'rotate('+(card.rotation)+'deg)'">
+                            <div  class="card" [style.transform]="'rotate('+(card.rotation)+'deg)'">
                                 <div class="cardimg"></div>
                             </div>
                         </div>
