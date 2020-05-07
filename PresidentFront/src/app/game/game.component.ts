@@ -225,6 +225,8 @@ export class GameComponent implements OnInit {
   
   numberCardsChanged(option)
   {
+    if(this.lastCard!=0)
+      return;
     this.numberOfCardsSelected = option;
     console.log("cards changed to "+ this.numberOfCardsSelected);
     console.log(option);
