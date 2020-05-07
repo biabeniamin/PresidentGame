@@ -58,6 +58,7 @@ async def jumpToNextPlayer():
 	if foundBigger == False:
 		lastCard = 0
 		turn = indexPlayerLastCard
+		numberOfCardsPerTurn = 1
 		#reset passed turn
 		await resetTurnedPassed()
 		await updateTurn()
@@ -96,11 +97,12 @@ async def changePresidentCards():
 		print( "winner",card.number)
 	#playersConnected[0]['cards'],playersConnected[1]['cards']=playersConnected[1]['cards'],playersConnected[0]['cards']
 async def startGame(firstTurn = 0):
-	global playersSubscribers, turn, playersConnected, lastCard, indexPlayerLastCard
+	global playersSubscribers, turn, playersConnected, lastCard, indexPlayerLastCard, numberOfCardsPerTurn
 	await CardWebSockets.shuffleCards(session, playersConnected)
 	print(playersConnected)
 	turn = firstTurn
 	lastCard = 0
+	numberOfCardsPerTurn = 1
 	await updateTurn()
 
 async def controlRequestReceived(websocket, session, request):
