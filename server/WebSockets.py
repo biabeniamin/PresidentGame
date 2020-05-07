@@ -56,10 +56,13 @@ async def jumpToNextPlayer():
 					await updateTurn()
 					break
 	if foundBigger == False:
+		#only to display
+		await PlayerWebSockets.setTurn(session, playersConnected, turn, lastCard, numberOfCardsPerTurn)
 		lastCard = 0
 		turn = indexPlayerLastCard
 		numberOfCardsPerTurn = 1
 		#reset passed turn
+		time.sleep(2)
 		await resetTurnedPassed()
 		await updateTurn()
 
@@ -146,7 +149,7 @@ async def controlRequestReceived(websocket, session, request):
 				print(player['player'].name, " - ", player['rank'])
 			await startGame(indexLooser)
 			
-			time.sleep(10)
+			time.sleep(5)
 			return await changePresidentCards()
 		lastCard = request['data']["cards"][0]['number']
 		await jumpToNextPlayer()
