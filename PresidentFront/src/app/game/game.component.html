@@ -92,13 +92,13 @@
                 </div>
             </div>
             <div class="namefield">
-                <div>{{playerCards[playersIndexes[0]].name}}</div>
                 <select (change)=numberCardsChanged($event.target.value) [value]="numberOfCardsSelected" [disabled]="this.lastCard != 0">
                     <option value="1">1</option>
                     <option value="2">2</option>
                     <option value="3">3</option>
                     <option value="4">4</option>
-                </select><br>
+                </select><br><br>
+                <div>{{playerCards[playersIndexes[0]].name}}</div>
                 <button (click)="turnPassed()">Pass</button>
 
             </div>
