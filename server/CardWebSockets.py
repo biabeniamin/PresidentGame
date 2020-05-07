@@ -13,6 +13,8 @@ async def shuffleCards(session, playersConnected):
 	for i in range(2, 15):
 		for j in range(0, 4):
 			cards.append(Card.Card(type=j, number=i, playerId=0))
+			if i==2 and j==2 and len(playersConnected)==3:
+				break
 	playerIndex = 0
 	while len(cards) > 0:
 		print(len(cards))
