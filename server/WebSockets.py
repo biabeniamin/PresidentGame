@@ -101,6 +101,11 @@ async def changePresidentCards():
 	#playersConnected[0]['cards'],playersConnected[1]['cards']=playersConnected[1]['cards'],playersConnected[0]['cards']
 async def startGame(firstTurn = 0):
 	global playersSubscribers, turn, playersConnected, lastCard, indexPlayerLastCard, numberOfCardsPerTurn
+	Card.deleteAllCards(session)
+	#Player.deleteAllPlayers(session)
+	for player in playersConnected:
+		player["cards"] = []
+		player["rank"] = -1
 	await CardWebSockets.shuffleCards(session, playersConnected)
 	print(playersConnected)
 	turn = firstTurn
@@ -115,8 +120,6 @@ async def controlRequestReceived(websocket, session, request):
 	print("adsdas")
 	if request['operation'] == 'start':
 		await startGame()
-		#Card.deleteAllCards(session)
-		#Player.deleteAllPlayers(session)
 	elif request['operation'] == 'cardSelected':
 		await CardWebSockets.cardSelected(session, playersConnected, request['data'])
 		numberOfCardsPerTurn = request['data']["numberOfCards"]
