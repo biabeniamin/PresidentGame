@@ -49,16 +49,16 @@
                                 </div>
                             </form>
                             <div id="matcardwrap">
-                                <div *ngIf="numberOfCardsSelected > 3" class="card unselectable schelle {{getCardNumberClass(cardService.lastCard.number)}} player3" style="">
+                                <div *ngIf="numberOfCardsSelected > 3 && lastCard !=0" class="card unselectable schelle {{getCardNumberClass(cardService.lastCard.number)}} player3" style="">
                                     <div class="cardimg"></div>
                                 </div>
-                                <div *ngIf="numberOfCardsSelected > 2" class="card unselectable roesle {{getCardNumberClass(cardService.lastCard.number)}} player1" style="">
+                                <div *ngIf="numberOfCardsSelected > 2 && lastCard !=0" class="card unselectable roesle {{getCardNumberClass(cardService.lastCard.number)}} player1" style="">
                                     <div class="cardimg"></div>
                                 </div>
-                                <div *ngIf="numberOfCardsSelected > 1" class="card unselectable roesle {{getCardNumberClass(cardService.lastCard.number)}} player2" style="">
+                                <div *ngIf="numberOfCardsSelected > 1 && lastCard !=0" class="card unselectable roesle {{getCardNumberClass(cardService.lastCard.number)}} player2" style="">
                                     <div class="cardimg"></div>
                                 </div>
-                                <div class="card unselectable {{getCardTypeClass(cardService.lastCard.type)}} {{getCardNumberClass(cardService.lastCard.number)}} player0" style="">
+                                <div *ngIf="lastCard !=0" class="card unselectable {{getCardTypeClass(cardService.lastCard.type)}} {{getCardNumberClass(cardService.lastCard.number)}} player0" style="">
                                     <div class="cardimg"></div>
                                 </div>
                             </div>
