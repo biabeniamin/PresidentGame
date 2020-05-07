@@ -12,3 +12,5 @@ def checkArguments(request, arguments):
 
 def removeClosedConnection(item):
 	return item.state == State.OPEN 
+def removeClosedConnectionPlayers(item):
+	return item["socket"].state == State.OPEN 

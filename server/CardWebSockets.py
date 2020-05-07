@@ -10,7 +10,7 @@ async def shuffleCards(session, playersConnected):
 	print(len(playersConnected))
 
 	cards=[]
-	for i in range(10, 15):
+	for i in range(2, 15):
 		for j in range(0, 4):
 			cards.append(Card.Card(type=j, number=i, playerId=0))
 	playerIndex = 0

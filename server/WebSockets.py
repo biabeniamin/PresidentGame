@@ -11,6 +11,7 @@ import Player
 import Card
 from itertools import chain
 import time
+from WebSocketsHelpers import removeClosedConnectionPlayers
 
 turn = 0
 lastCard = 0
@@ -102,6 +103,7 @@ async def changePresidentCards():
 async def startGame(firstTurn = 0):
 	global playersSubscribers, turn, playersConnected, lastCard, indexPlayerLastCard, numberOfCardsPerTurn
 	Card.deleteAllCards(session)
+	playersConnected = list(filter(removeClosedConnectionPlayers, playersConnected))
 	#Player.deleteAllPlayers(session)
 	for player in playersConnected:
 		player["cards"] = []
