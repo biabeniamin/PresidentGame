@@ -28,7 +28,7 @@ async def resetTurnedPassed():
 	for player in playersConnected:
 		player['turnPassed'] = False
 async def jumpToNextPlayer():
-	global playersConnected, turn, lastCard, indexPlayerLastCard
+	global playersConnected, turn, lastCard, indexPlayerLastCard, numberOfCardsPerTurn
 	foundBigger = False
 	for i in chain(range(turn + 1, len(playersConnected)), range(0, turn)):
 		player = playersConnected[i]
@@ -39,14 +39,22 @@ async def jumpToNextPlayer():
 			continue
 		if foundBigger:
 			break
+		cardsCount = {}
+		for card in player['cards']:
+			if card.number in cardsCount:
+				cardsCount[card.number] = cardsCount[card.number] + 1 
+			else:
+				cardsCount[card.number] = 1
+		print("cards count ", cardsCount)
 		for card in player['cards']:
 			if card.number > lastCard:
-				foundBigger = True
-				print("gasita mai mare la ", card.playerId)
-				print("turn", turn, " ", i, " index last player ", indexPlayerLastCard)
-				turn = i
-				await updateTurn()
-				break
+				if(int(cardsCount[card.number]) >= int(numberOfCardsPerTurn)):
+					foundBigger = True
+					print("gasita mai mare la ", card.playerId)
+					print("turn", turn, " ", i, " index last player ", indexPlayerLastCard)
+					turn = i
+					await updateTurn()
+					break
 	if foundBigger == False:
 		lastCard = 0
 		turn = indexPlayerLastCard
