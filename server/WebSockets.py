@@ -190,6 +190,6 @@ async def requestReceived(websocket, path):
 
 Card.deleteAllCards(session)
 Player.deleteAllPlayers(session)
-start_server = websockets.serve(requestReceived, 'localhost', 6789)
+start_server = websockets.serve(requestReceived, '0.0.0.0', 6789)
 asyncio.get_event_loop().run_until_complete(start_server)
 asyncio.get_event_loop().run_forever()
