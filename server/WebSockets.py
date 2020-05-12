@@ -90,9 +90,11 @@ async def updateTurn():
 async def changePresidentCards():
 	global playersConnected
 	print("changing cards between players")
-	sortedPlayers = sorted(playersConnected, key=lambda x: x["rank"])
+	sortedPlayers = sorted(playersConnected, key=lambda x: x["lastRank"])
+	for card in playersConnected:
+		print( "non-sort ",card["lastRank"])
 	for card in sortedPlayers:
-		print( "sork",card["rank"])
+		print( "sort ",card["lastRank"])
 	if len(sortedPlayers) > 1:
 		await CardWebSockets.changeCards(session, playersConnected, sortedPlayers[len(sortedPlayers) - 1],sortedPlayers[0], 2)
 	if len(sortedPlayers) > 3:
@@ -107,6 +109,7 @@ async def startGame(firstTurn = 0):
 	#Player.deleteAllPlayers(session)
 	for player in playersConnected:
 		player["cards"] = []
+		player["lastRank"] = player["rank"]
 		player["rank"] = -1
 	await CardWebSockets.shuffleCards(session, playersConnected)
 	print(playersConnected)
