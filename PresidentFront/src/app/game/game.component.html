@@ -12,17 +12,17 @@
 
 <body>
     <div id="gamecontent">
-        <div *ngIf="playersIndexes.length > 2" class="player2 hand">
+        <div *ngIf="playersIndexes.length > 3" class="player2 hand">
             <div class="cardholderwrap">
                 <div class="cardholder">
-                    <div *ngFor="let card of playerCards[playersIndexes[2]].cards">
+                    <div *ngFor="let card of playerCards[playersIndexes[3]].cards">
                         <div  class="card" [style.transform]="'rotate('+(card.rotation)+'deg)'">
                             <div class="cardimg"></div>
                         </div>
                     </div>
                 </div>
             </div>
-            <div class="namefield">{{playerCards[playersIndexes[2]].name}}{{playerCards[playersIndexes[2]].cards.length == 0 ? " - Finised":""}}</div>
+            <div class="namefield">{{playerCards[playersIndexes[3]].name}}{{playerCards[playersIndexes[3]].cards.length == 0 ? " - Finised":""}}</div>
             <div class="stiche"></div>
         </div>
         <div *ngIf="playersIndexes.length > 2" class="player4 hand">
@@ -80,17 +80,17 @@
                     </div>
                 </div>
             </div>
-            <div *ngIf="playersIndexes.length > 3" class="player1 hand">
+            <div *ngIf="playersIndexes.length > 4" class="player1 hand">
                 <div class="cardholderwrap">
                     <div class="cardholder">
-                        <div *ngFor="let card of playerCards[playersIndexes[3]].cards">
+                        <div *ngFor="let card of playerCards[playersIndexes[4]].cards">
                             <div  class="card" [style.transform]="'rotate('+(card.rotation)+'deg)'">
                                 <div class="cardimg"></div>
                             </div>
                         </div>
                     </div>
                 </div>
-                <div class="namefield">{{playerCards[playersIndexes[3]].name}}{{playerCards[playersIndexes[3]].cards.length == 0 ? " - Finised":""}}</div>
+                <div class="namefield">{{playerCards[playersIndexes[4]].name}}{{playerCards[playersIndexes[4]].cards.length == 0 ? " - Finised":""}}</div>
                 <div class="stiche"></div>
             </div>
         </div>
