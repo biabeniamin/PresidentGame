@@ -263,6 +263,12 @@ export class GameComponent implements OnInit {
 
         this.playerCards[request.data.playerIndex].turn = true;
         this.turnRotation = this.playerCards[request.data.playerIndex].order;
+        if(this.turnRotation == 2)
+          this.turnRotation = 1.6;
+        else if(this.turnRotation == 3)
+          this.turnRotation = 2.4;
+        else if(this.turnRotation == 4)
+          this.turnRotation = 3;
         this.lastCard = request.data.lastCard;
         this.numberOfCardsSelected = request.data.nrCards;
         console.log("set last card to" + this.lastCard);
