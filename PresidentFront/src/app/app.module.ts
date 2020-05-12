@@ -23,11 +23,11 @@ import { PlayerComponent } from './player/player.component';
     RouterModule.forRoot([
       { 
         path : '',
-        component : AppComponent
+        component : GameComponent
       },
       { 
         path : 'game',
-        component : GameComponent
+        component : GameComponent 
       },
       { 
         path : 'cards',
