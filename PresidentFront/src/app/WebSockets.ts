@@ -31,7 +31,7 @@ export class WebSockets
 
 	constructor()
 	{
-        this.socket$ = new WebSocketSubject('ws://192.168.0.100:6789');
+        this.socket$ = new WebSocketSubject('ws://biabeniamin.go.ro:6789');
 
         this.socket$
             .subscribe(
