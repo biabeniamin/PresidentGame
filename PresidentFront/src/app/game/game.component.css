@@ -685,6 +685,11 @@ body {
     left: 30%;
     top: 7%;
 }
+.player0.hand .namefield
+{
+    position: relative;
+    top: 10%;
+}
 /**
  * Container with the size of a card, aspect ratio 127/178 (a card).
  *
