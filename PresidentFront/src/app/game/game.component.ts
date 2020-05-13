@@ -22,6 +22,7 @@ export class GameComponent implements OnInit {
   public lastCard = 0;
   public numberOfCardsSelected = 1;
   public passButtonActivated = false;
+  public scoreboard: [];
 
   private webSocketsSubject : Subject<any>;
 
@@ -282,6 +283,10 @@ export class GameComponent implements OnInit {
         console.log("set last card to" + this.lastCard);
 
         this.updateCardsClickable()
+      }
+      else if(request.operation == 'scoreboard')
+			{
+        this.scoreboard = request.data;
       }
 		});
 	}
