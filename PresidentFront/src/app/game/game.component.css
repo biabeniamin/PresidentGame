@@ -81,7 +81,11 @@ body {
 /**
  * Specify size of .player2.hand
  */
-#gamecontent > .player2.hand {
+ #gamecontent > .player2.hand {
+    height: 10%; /* if we change this, also change size of #gamecontent > #innergamecontent > #table > #jassmatwrap and #gamecontent > #innergamecontent > .hand:not(.player0) */
+}
+
+#gamecontent > .player4.hand {
     height: 10%; /* if we change this, also change size of #gamecontent > #innergamecontent > #table > #jassmatwrap and #gamecontent > #innergamecontent > .hand:not(.player0) */
 }
 
@@ -612,6 +616,7 @@ body {
 .player0.hand > .stiche { top: 150vh; }
 .player1.hand > .stiche { left: 150vw; }
 .player2.hand > .stiche { top: -50vh; }
+.player4.hand > .stiche { top: -50vh; }
 .player3.hand > .stiche { left: -50vw; }
 
 /**
@@ -661,7 +666,7 @@ body {
  * The wraps on top and bottom should have a height of 100% the container's height. The wraps on left and right should
  * have a height of 100% the container's width 
  */
-.player0.hand > .cardholderwrap, .player2.hand > .cardholderwrap { height: 100%; }
+.player0.hand > .cardholderwrap, .player2.hand > .cardholderwrap , .player4.hand > .cardholderwrap { height: 100%; }
 .player1.hand > .cardholderwrap, .player3.hand > .cardholderwrap { padding-bottom: 100%; }
 
 /**
@@ -675,10 +680,10 @@ body {
 
 .player4{
     left: -30%;
-    top: -5%;
 }
 .player2{
     left: 30%;
+    top: 7%;
 }
 /**
  * Container with the size of a card, aspect ratio 127/178 (a card).
@@ -697,6 +702,7 @@ body {
 .player0.hand > .cardholderwrap > .cardholder { bottom: 10%; }
 .player1.hand > .cardholderwrap > .cardholder { top: 10%; }
 .player2.hand > .cardholderwrap > .cardholder { top: 10%; }
+.player4.hand > .cardholderwrap > .cardholder { top: 10%; }
 .player3.hand > .cardholderwrap > .cardholder { top: 10%; }
 
 /**
