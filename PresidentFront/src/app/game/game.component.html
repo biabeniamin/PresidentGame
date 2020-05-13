@@ -112,7 +112,7 @@
                     <option value="4">4</option>
                 </select><br><br>
                 <div>{{playerCards[playersIndexes[0]].name}}</div>
-                <button (click)="turnPassed()">Pass</button>
+                <button (click)="turnPassed()" [disabled]="turnRotation != 0 || passButtonActivated == false">Pass</button>
 
             </div>
             <div class="stiche"></div>

@@ -14,13 +14,14 @@ import { Subject } from 'rxjs';
 export class GameComponent implements OnInit {
 
   @ViewChild('popUpWindowContainer2', { static: false }) myDiv: any;
-  public displayPopUp : boolean = false;
+  public displayPopUp : boolean = true;
   public turnRotation : number = 0;
   public playerCards : any[];
   public playerId = 332;
   public playersIndexes = [];
   public lastCard = 0;
   public numberOfCardsSelected = 1;
+  public passButtonActivated = false;
 
   private webSocketsSubject : Subject<any>;
 
@@ -222,6 +223,7 @@ export class GameComponent implements OnInit {
     if(this.turnRotation != 0)
       return;
     console.log("turn passed");
+    this.passButtonActivated = false;
     this.webSockets.Send(new Request('turnPassed', 'Control', ''));
   }
   
@@ -269,6 +271,12 @@ export class GameComponent implements OnInit {
           this.turnRotation = 2.4;
         else if(this.turnRotation == 4)
           this.turnRotation = 3;
+        else if(this.turnRotation == 0)
+        {
+          this.passButtonActivated = true;
+        }
+
+          
         this.lastCard = request.data.lastCard;
         this.numberOfCardsSelected = request.data.nrCards;
         console.log("set last card to" + this.lastCard);
