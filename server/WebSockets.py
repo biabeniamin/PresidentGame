@@ -123,7 +123,8 @@ async def sendScoreboard():
 	score = []
 	for player in playersConnected:
 		score.append({"name" : player["player"].name, "score" : player["score"]})
-	scoreMessage = convertToJson({'operation' : 'scoreboard', 'table' : 'Game', 'data' : score})
+	sortedScore = sorted(score, key=lambda x: x["score"], reverse=True)
+	scoreMessage = convertToJson({'operation' : 'scoreboard', 'table' : 'Game', 'data' : sortedScore})
 	for player in playersConnected:
 		await player['socket'].send(scoreMessage)
 	
