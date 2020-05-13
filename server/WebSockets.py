@@ -118,6 +118,16 @@ async def startGame(firstTurn = 0):
 	numberOfCardsPerTurn = 1
 	await updateTurn()
 
+async def sendScoreboard():
+	global playersConnected
+	score = []
+	for player in playersConnected:
+		score.append({"name" : player["player"].name, "score" : player["score"]})
+	scoreMessage = convertToJson({'operation' : 'scoreboard', 'table' : 'Game', 'data' : score})
+	for player in playersConnected:
+		await player['socket'].send(scoreMessage)
+	
+
 async def controlRequestReceived(websocket, session, request):
 	global playersSubscribers, numberOfCardsPerTurn
 	global turn, playersConnected, lastCard, indexPlayerLastCard, finishedPlayers
@@ -157,8 +167,9 @@ async def controlRequestReceived(websocket, session, request):
 				print(player['player'].name, " - ", player['rank'])
 			await startGame(indexLooser)
 			
-			time.sleep(5)
-			return await changePresidentCards()
+			time.sleep(4)
+			await changePresidentCards()
+			return await sendScoreboard()
 		lastCard = request['data']["cards"][0]['number']
 		await jumpToNextPlayer()
 	elif request['operation'] == 'turnPassed':
