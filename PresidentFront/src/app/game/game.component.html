@@ -142,9 +142,17 @@
                 <div class="title-2">Scoreboard</div> <br>
                 <table class="scoretable">
                     <thead>
-
+                        <tr>
+                            <th>Name</th>
+                            <th>Score</th>
+                        </tr>
                     </thead>
-                    <tbody></tbody>
+                    <tbody>
+                        <tr *ngFor="let score of scoreboard">
+                            <td>{{score.name}}</td>
+                            <td>{{score.score}}</td>
+                        </tr>
+                    </tbody>
                 </table>
             </div>
         </div>
