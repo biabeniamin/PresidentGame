@@ -22,7 +22,7 @@
                     </div>
                 </div>
             </div>
-            <div class="namefield">{{playerCards[playersIndexes[3]].name}}{{playerCards[playersIndexes[3]].cards.length == 0 ? " - Finised":""}}</div>
+            <div class="namefield">{{playerCards[playersIndexes[3]].name}} - {{playerCards[playersIndexes[3]].cards.length == 0 ? "Finised":playerCards[playersIndexes[3]].cards.length}}</div>
             <div class="stiche"></div>
         </div>
         <div *ngIf="playersIndexes.length > 2" class="player4 hand">
@@ -35,7 +35,7 @@
                     </div>
                 </div>
             </div>
-            <div class="namefield">{{playerCards[playersIndexes[2]].name}}{{playerCards[playersIndexes[2]].cards.length == 0 ? " - Finised":""}}</div>
+            <div class="namefield">{{playerCards[playersIndexes[2]].name}} - {{playerCards[playersIndexes[2]].cards.length == 0 ? "Finised":playerCards[playersIndexes[2]].cards.length}}</div>
             <div class="stiche"></div>
         </div>
         <div id="innergamecontent">
@@ -49,7 +49,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="namefield">{{playerCards[playersIndexes[1]].name}}{{playerCards[playersIndexes[1]].cards.length == 0 ? " - Finised":""}}</div>
+                <div class="namefield">{{playerCards[playersIndexes[1]].name}} - {{playerCards[playersIndexes[1]].cards.length == 0 ? "Finised":playerCards[playersIndexes[1]].cards.length}}</div>
                 <div class="stiche"></div>
             </div>
             <div id="table">
@@ -90,7 +90,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="namefield">{{playerCards[playersIndexes[4]].name}}{{playerCards[playersIndexes[4]].cards.length == 0 ? " - Finised":""}}</div>
+                <div class="namefield">{{playerCards[playersIndexes[4]].name}} - {{playerCards[playersIndexes[4]].cards.length == 0 ? "Finised":playerCards[playersIndexes[4]].cards.length}}</div>
                 <div class="stiche"></div>
             </div>
         </div>
