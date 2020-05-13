@@ -14,7 +14,8 @@ import { Subject } from 'rxjs';
 export class GameComponent implements OnInit {
 
   @ViewChild('popUpWindowContainer2', { static: false }) myDiv: any;
-  public displayPopUp : boolean = true;
+  public displayPopUp : boolean = false;
+  public displayScoreboard : boolean = true;
   public turnRotation : number = 0;
   public playerCards : any[];
   public playerId = 332;
@@ -226,6 +227,11 @@ export class GameComponent implements OnInit {
     console.log("turn passed");
     this.passButtonActivated = false;
     this.webSockets.Send(new Request('turnPassed', 'Control', ''));
+  }
+
+  scoreboardClicked()
+  {
+    this.displayScoreboard =!this.displayScoreboard;
   }
   
   numberCardsChanged(option)
