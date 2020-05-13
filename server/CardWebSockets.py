@@ -50,6 +50,10 @@ async def changeCards(session, playersConnected, looser, winner, numberCards):
 		card.playerId = winner["player"].playerId
 		card = Card.updateCard(session, card)
 		winner["cards"].append(card)
+	#update score
+	winner["score"] = winner["score"] + numberCards
+	looser["score"] = looser["score"] - numberCards
+
 	cards = Card.getCards(session)
 	response = convertToJson({'operation' : 'get', 'table' : 'Cards', 'data' : cards})
 	for player in playersConnected:
