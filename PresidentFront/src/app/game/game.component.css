@@ -413,7 +413,7 @@ body {
     background-color: var(--scoreboard-background);
     border-color: var(--scoreboard-border);
 
-    font-size: 2px;
+    font-size: 8px;
 }
 
 /**
