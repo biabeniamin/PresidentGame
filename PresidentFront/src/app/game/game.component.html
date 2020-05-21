@@ -93,6 +93,19 @@
                 <div class="namefield">{{playerCards[playersIndexes[4]].name}} - {{playerCards[playersIndexes[4]].cards.length == 0 ? "Finised":playerCards[playersIndexes[4]].cards.length}}</div>
                 <div class="stiche"></div>
             </div>
+            <div *ngIf="playersIndexes.length > 4" class="player5 hand">
+                <div class="cardholderwrap">
+                    <div class="cardholder">
+                        <div *ngFor="let card of playerCards[playersIndexes[4]].cards">
+                            <div  class="card" [style.transform]="'rotate('+(card.rotation)+'deg)'">
+                                <div class="cardimg"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="namefield">{{playerCards[playersIndexes[4]].name}} - {{playerCards[playersIndexes[4]].cards.length == 0 ? "Finised":playerCards[playersIndexes[4]].cards.length}}</div>
+                <div class="stiche"></div>
+            </div>
         </div>
         <div *ngIf="playersIndexes.length > 0" class="player0 hand">
             <div class="cardholderwrap">

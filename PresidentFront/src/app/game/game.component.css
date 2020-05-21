@@ -677,6 +677,7 @@ body {
 .player2.hand > .cardholderwrap { transform: rotate(-180deg); }
 .player4.hand > .cardholderwrap { transform: rotate(-180deg); }
 .player3.hand > .cardholderwrap { transform: rotate(-270deg); }
+.player5.hand > .cardholderwrap { transform: rotate(-90deg); }
 
 .player4{
     left: -30%;
@@ -684,11 +685,17 @@ body {
 .player2{
     left: 30%;
     top: 7%;
+    z-index: 2;
 }
 .player0.hand .namefield
 {
     position: relative;
     top: 10%;
+}
+
+.player1
+{
+    top: -30%;
 }
 /**
  * Container with the size of a card, aspect ratio 127/178 (a card).
