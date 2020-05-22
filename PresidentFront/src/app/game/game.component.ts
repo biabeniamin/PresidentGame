@@ -14,7 +14,7 @@ import { Subject } from 'rxjs';
 export class GameComponent implements OnInit {
 
   @ViewChild('popUpWindowContainer2', { static: false }) myDiv: any;
-  public displayPopUp : boolean = false;
+  public displayPopUp : boolean = true;
   public displayScoreboard : boolean = false;
   public turnRotation : number = 0;
   public playerCards : any[];
@@ -276,8 +276,10 @@ export class GameComponent implements OnInit {
           this.turnRotation = 1.6;
         else if(this.turnRotation == 3)
           this.turnRotation = 2.4;
-        else if(this.turnRotation == 4)
-          this.turnRotation = 3;
+          else if(this.turnRotation == 4)
+          this.turnRotation = 2.8;
+          else if(this.turnRotation == 5)
+          this.turnRotation = 3.4;
         else if(this.turnRotation == 0)
         {
           this.passButtonActivated = true;
