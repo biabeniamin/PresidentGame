@@ -697,6 +697,12 @@ body {
 {
     top: -30%;
 }
+
+.player5
+{
+    top:50%;
+    left: -7%;
+}
 /**
  * Container with the size of a card, aspect ratio 127/178 (a card).
  *
