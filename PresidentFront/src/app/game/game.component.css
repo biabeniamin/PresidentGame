@@ -659,6 +659,7 @@ body {
     * rotate the namefield of the right and left player
     */
     .player1.hand > .namefield {transform: rotate(90deg);}
+    .player5.hand > .namefield {transform: rotate(90deg);}
     .player3.hand > .namefield {transform: rotate(-90deg);}
 }
 
@@ -700,8 +701,20 @@ body {
 
 .player5
 {
-    top:50%;
-    left: -7%;
+    top:100%;
+    left:-70%;
+}
+
+@media screen and (min-width: 1000px)
+{
+    .player1
+    {
+        left:-5%;
+    }
+    .player5
+    {
+        left:-80%;
+    }
 }
 /**
  * Container with the size of a card, aspect ratio 127/178 (a card).
