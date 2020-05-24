@@ -14,3 +14,6 @@ def removeClosedConnection(item):
 	return item.state == State.OPEN 
 def removeClosedConnectionPlayers(item):
 	return item["socket"].state == State.OPEN 
+
+def filterOpenedConnectionPlayers(players):
+	return list(filter(removeClosedConnectionPlayers, players))

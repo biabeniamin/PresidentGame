@@ -2,10 +2,12 @@
 from SqlAlchemy import convertToJson, dict_as_obj
 from WebSocketsHelpers import checkArguments, removeClosedConnection
 import Player
+from WebSocketsHelpers import filterOpenedConnectionPlayers
+
 playersSubscribers = set()
 async def setTurn(session, playersConnected, turn, lastCard, nrCardsPerTurn):
 	turnMessage = convertToJson({'operation' : 'turn', 'table' : 'Game', 'data' : {'playerIndex' : turn, 'lastCard' : lastCard, "nrCards" : nrCardsPerTurn}})
-	for player in playersConnected:
+	for player in filterOpenedConnectionPlayers(playersConnected):
 		await player['socket'].send(turnMessage)
 async def requestReceived(websocket, session, playersConnected, request):
 	global playersSubscribers
