@@ -11,7 +11,7 @@ import Player
 import Card
 from itertools import chain
 import time
-from WebSocketsHelpers import removeClosedConnectionPlayers
+from WebSocketsHelpers import removeClosedConnectionPlayers, removeClosedConnectionPlayersFromGame
 
 turn = 0
 lastCard = 0
@@ -189,6 +189,8 @@ async def requestReceived(websocket, path):
 		async for requestJson in websocket:
 			request = json.loads(requestJson)
 			print(request)
+			global playersConnected
+			removeClosedConnectionPlayersFromGame(playersConnected)
 			if request['table'] == 'Cards':
 				await CardWebSockets.requestReceived(websocket, session, request)
 			elif request['table'] == 'Players':

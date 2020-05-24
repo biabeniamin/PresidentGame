@@ -17,3 +17,9 @@ def removeClosedConnectionPlayers(item):
 
 def filterOpenedConnectionPlayers(players):
 	return list(filter(removeClosedConnectionPlayers, players))
+
+def removeClosedConnectionPlayersFromGame(players):
+	for player in players:
+		if removeClosedConnectionPlayers(player) == False:
+			player["rank"] = 99
+			player["cards"] = []
