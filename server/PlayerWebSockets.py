@@ -9,6 +9,14 @@ async def setTurn(session, playersConnected, turn, lastCard, nrCardsPerTurn):
 	turnMessage = convertToJson({'operation' : 'turn', 'table' : 'Game', 'data' : {'playerIndex' : turn, 'lastCard' : lastCard, "nrCards" : nrCardsPerTurn}})
 	for player in filterOpenedConnectionPlayers(playersConnected):
 		await player['socket'].send(turnMessage)
+
+async def updatePlayers(session, playersConnected):
+	players = Player.getPlayers(session)
+	response = convertToJson({'operation' : 'get', 'table' : 'Players', 'data' : players})
+	for player in filterOpenedConnectionPlayers(playersConnected):
+		await player['socket'].send(response)
+	
+
 async def requestReceived(websocket, session, playersConnected, request):
 	global playersSubscribers
 	#Websockets endpoints
