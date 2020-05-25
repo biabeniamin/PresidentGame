@@ -114,6 +114,10 @@ def deleteAllCards(session):
 	result = session.query(Card).delete()
 	session.commit()
 
+def deleteAllCardsForAPlayer(session, playerId):
+	result = session.query(Card).filter(Card.playerId == playerId)
+	session.delete(result)
+	return result
 
 #API endpoints
 #request parser funtion
