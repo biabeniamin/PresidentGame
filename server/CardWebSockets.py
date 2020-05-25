@@ -4,6 +4,7 @@ from WebSocketsHelpers import checkArguments, removeClosedConnection
 import Card
 from random import random
 from math import floor
+from WebSocketsHelpers import filterOpenedConnectionPlayers
 cardsSubscribers = set()
 async def shuffleCards(session, playersConnected):
 	print(playersConnected)
@@ -59,6 +60,16 @@ async def changeCards(session, playersConnected, looser, winner, numberCards):
 	cards = Card.getCards(session)
 	response = convertToJson({'operation' : 'get', 'table' : 'Cards', 'data' : cards})
 	for player in playersConnected:
+		 await player['socket'].send(response)
+
+async def removeCardsFromPlayer(session, playersConnected, player):
+	print("remove cards for player ", player["player"].name)
+	player.cards = []
+	Card.deleteAllCardsForAPlayer(session, player.playerId)
+
+	cards = Card.getCards(session)
+	response = convertToJson({'operation' : 'get', 'table' : 'Cards', 'data' : cards})
+	for player in filterOpenedConnectionPlayers(playersConnected):
 		 await player['socket'].send(response)
 
 async def cardSelected(session, playersConnected, data):
