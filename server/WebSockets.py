@@ -4,6 +4,7 @@ import websockets
 import json
 from SqlAlchemyMain import session
 import CardWebSockets
+from CardWebSockets import removeCardsFromPlayer 
 from SqlAlchemy import convertToJson, dict_as_obj
 import PlayerWebSockets
 import NotificationWebSockets
@@ -11,7 +12,7 @@ import Player
 import Card
 from itertools import chain
 import time
-from WebSocketsHelpers import removeClosedConnectionPlayers, removeClosedConnectionPlayersFromGame
+from WebSocketsHelpers import removeClosedConnectionPlayers
 
 turn = 0
 lastCard = 0
@@ -24,10 +25,18 @@ users = set()
 def connectedSuccessfullyEvent():
 	return json.dumps({'table': 'WebSockets', 'operation' : 'connectedSuccessfully'})
 
+async def removeClosedConnectionPlayersFromGame(session, players):
+	print("checking if a player closed the connection")
+	for player in players:
+		if removeClosedConnectionPlayers(player) == False:
+			player["rank"] = 99
+			await removeCardsFromPlayer(session, players, player)
+
 async def resetTurnedPassed():
 	global playersConnected
 	for player in playersConnected:
 		player['turnPassed'] = False
+
 async def jumpToNextPlayer():
 	global playersConnected, turn, lastCard, indexPlayerLastCard, numberOfCardsPerTurn
 	foundBigger = False
@@ -190,7 +199,7 @@ async def requestReceived(websocket, path):
 			request = json.loads(requestJson)
 			print(request)
 			global playersConnected
-			removeClosedConnectionPlayersFromGame(playersConnected)
+			await removeClosedConnectionPlayersFromGame(session, playersConnected)
 			if request['table'] == 'Cards':
 				await CardWebSockets.requestReceived(websocket, session, request)
 			elif request['table'] == 'Players':

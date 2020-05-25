@@ -1,4 +1,6 @@
 from websockets.protocol import State
+#from CardWebSockets import removeCardsFromPlayer 
+import CardWebSockets
 def checkArguments(request, arguments):
 	print(request)
 	print('data' in request)
@@ -18,8 +20,3 @@ def removeClosedConnectionPlayers(item):
 def filterOpenedConnectionPlayers(players):
 	return list(filter(removeClosedConnectionPlayers, players))
 
-def removeClosedConnectionPlayersFromGame(players):
-	for player in players:
-		if removeClosedConnectionPlayers(player) == False:
-			player["rank"] = 99
-			player["cards"] = []
