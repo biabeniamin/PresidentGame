@@ -64,8 +64,8 @@ async def changeCards(session, playersConnected, looser, winner, numberCards):
 
 async def removeCardsFromPlayer(session, playersConnected, player):
 	print("remove cards for player ", player["player"].name)
-	player.cards = []
-	Card.deleteAllCardsForAPlayer(session, player.playerId)
+	player["cards"] = []
+	Card.deleteAllCardsForAPlayer(session, player["player"].playerId)
 
 	cards = Card.getCards(session)
 	response = convertToJson({'operation' : 'get', 'table' : 'Cards', 'data' : cards})
