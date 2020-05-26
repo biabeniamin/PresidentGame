@@ -114,7 +114,20 @@ async def changePresidentCards():
 async def startGame(firstTurn = 0):
 	global playersSubscribers, turn, playersConnected, lastCard, indexPlayerLastCard, numberOfCardsPerTurn
 	Card.deleteAllCards(session)
-	playersConnected = list(filter(removeClosedConnectionPlayers, playersConnected))
+
+
+	index = 0
+	while index < len(playersConnected):
+		player = playersConnected[index]
+		if removeClosedConnectionPlayers(player) == False:
+			print("----------------------")
+			print("remove player")
+			playersConnected.remove(player)
+			index = index - 1
+			Player.deletePlayer(session, player["player"].playerId)
+		index = index + 1
+	print("updating players ", len(playersConnected))
+	await PlayerWebSockets.updatePlayers(session, playersConnected)
 	#Player.deleteAllPlayers(session)
 	for player in playersConnected:
 		player["cards"] = []
