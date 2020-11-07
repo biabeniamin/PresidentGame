@@ -68,6 +68,12 @@ async def jumpToNextPlayer():
 	if foundBigger == False:
 		#debug only
 		print(playersConnected)
+		for player in playersConnected:
+			print(player)
+			print(player['player'].name)
+			for card in player['cards']:
+				print(str(card.type) + " " + str(card.number))
+			print("------------")
 		print(turn)
 		print(lastCard)
 		print(indexPlayerLastCard)
