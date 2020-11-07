@@ -66,6 +66,12 @@ async def jumpToNextPlayer():
 					await updateTurn()
 					break
 	if foundBigger == False:
+		#debug only
+		print(playersConnected)
+		print(turn)
+		print(lastCard)
+		print(indexPlayerLastCard)
+		print(numberOfCardsPerTurn)
 		#only to display
 		await PlayerWebSockets.setTurn(session, playersConnected, turn, lastCard, numberOfCardsPerTurn)
 		lastCard = 0
